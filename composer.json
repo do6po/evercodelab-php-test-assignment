@@ -1,0 +1,12 @@
+{
+    "name": "box/evercodelab-php-test-assignment",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Бойко Сергей",
+            "email": "helvisbox@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
