@@ -8,26 +8,27 @@
 
 include __DIR__ . '/../vendor/autoload.php';
 
-use app\helpers\DbInit;
-use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 
-ini_set('display_errors',1);
+ini_set('display_errors', 1);
 
-$db = new DbInit(require  __DIR__ . '/../config/db.php');
+/** @var \Illuminate\Container\Container $app */
+$app = require_once(__DIR__ . '/../bootstrap/app.php');
 
-$container = new Container;
-$container->singleton('app', Container::class);
+/** @var \Illuminate\Database\Capsule\Manager $db */
+$db = require_once(__DIR__ . '/../bootstrap/db.php');
+
+$app->singleton('db', $db);
 
 $request = Request::capture();
-$container->instance(Request::class, $request);
+$app->instance(Request::class, $request);
 
-$events = new Dispatcher($container);
-$router = new Router($events, $container);
+$events = new Dispatcher($app);
+$router = new Router($events, $app);
 
 require_once __DIR__ . '/../config/routes.php';
 
