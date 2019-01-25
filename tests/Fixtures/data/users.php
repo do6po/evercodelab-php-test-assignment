@@ -12,11 +12,11 @@ return [
     [
         'username' => 'username1',
         'password' => 'NewVeryHardPassword1',
-        'key' => HashHelper::random(),
+        'key' => HashHelper::generate(),
     ],
     [
         'username' => 'username2',
         'password' => 'NewVeryHardPassword2',
-        'key' => HashHelper::random(),
+        'key' => HashHelper::generate(),
     ],
 ];

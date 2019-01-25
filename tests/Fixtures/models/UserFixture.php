@@ -8,14 +8,12 @@
 
 namespace Tests\Fixtures\models;
 
-
-use app\models\User;
+use app\models\auth\User;
 use Tests\Fixtures\ActiveFixture;
-
 
 class UserFixture extends ActiveFixture
 {
-    public $dataFile =  __DIR__ . '/../data/users.php';
+    public $dataFile = __DIR__.'/../data/users.php';
 
     public $modelClass = User::class;
 }

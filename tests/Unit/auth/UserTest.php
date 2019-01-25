@@ -6,11 +6,12 @@
  * Time: 19:03
  */
 
+namespace tests\Unit\auth;
+
 use app\helpers\HashHelper;
-use app\models\User;
+use app\models\auth\User;
 use Tests\Fixtures\models\UserFixture;
 use Tests\TestCase;
-
 
 class UserTest extends TestCase
 {
@@ -26,7 +27,7 @@ class UserTest extends TestCase
         $data = [
             'username' => 'NewUsername',
             'password' => 'NewHardPassword!',
-            'key' => HashHelper::random(),
+            'key' => HashHelper::generate(),
         ];
 
         $this->assertDatabaseMissing(User::class, $data);
@@ -49,6 +50,5 @@ class UserTest extends TestCase
         $user->delete();
 
         $this->assertDatabaseMissing(User::class, $data);
-
     }
 }

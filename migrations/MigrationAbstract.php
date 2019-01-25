@@ -37,9 +37,9 @@ abstract class MigrationAbstract extends AbstractMigration
     public function getConfig()
     {
         if ($this->environment === 'test') {
-            return require_once(__DIR__ . '/../config/db_test.php');
+            return require __DIR__ . '/../config/db_test.php';
         }
 
-        return require_once(__DIR__ . '/../config/db.php');
+        return require __DIR__ . '/../config/db.php';
     }
 }

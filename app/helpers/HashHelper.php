@@ -8,10 +8,9 @@
 
 namespace app\helpers;
 
-
 class HashHelper
 {
-    public static function random($length = 20): string
+    public static function generate($length = 20): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);

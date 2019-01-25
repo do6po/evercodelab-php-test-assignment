@@ -16,7 +16,6 @@
         "illuminate/routing": "^5.8@dev",
         "illuminate/events": "^5.8@dev",
         "illuminate/console": "^5.8@dev",
-        "laravelflux/laravel-fixtures": "dev-master",
         "robmorgan/phinx": "dev-master"
     },
     "autoload": {
