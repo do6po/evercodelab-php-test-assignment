@@ -2,15 +2,15 @@
 
 namespace Tests;
 
+use Illuminate\Container\Container;
+
 trait CreatesApplication
 {
     /**
-     * @return mixed
+     * @return Container
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
-
-        return $app;
+        return require __DIR__.'/../bootstrap/app.php';
     }
 }

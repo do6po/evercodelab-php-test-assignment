@@ -8,4 +8,4 @@
 
 use app\helpers\DbInit;
 
-return new DbInit(require  __DIR__ . '/../config/db.php');
+return new DbInit(require  __DIR__ . '/../config/db_test.php');
