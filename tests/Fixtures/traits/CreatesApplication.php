@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Fixtures\traits;
 
 use Illuminate\Container\Container;
 
@@ -11,6 +11,6 @@ trait CreatesApplication
      */
     public function createApplication()
     {
-        return require __DIR__.'/../bootstrap/app.php';
+        return require __DIR__ . '/../../../bootstrap/app.php';
     }
 }

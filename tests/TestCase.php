@@ -2,19 +2,19 @@
 
 namespace Tests;
 
-use LaravelFlux\Fixture\Traits\FixtureTrait;
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use Tests\Fixtures\traits\AssertsDbTrait;
+use Tests\Fixtures\traits\CreateDbConnection;
+use Tests\Fixtures\traits\CreatesApplication;
+use Tests\Fixtures\traits\FixtureTrait;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, CreateDbConnection, FixtureTrait;
+    use CreatesApplication, CreateDbConnection, FixtureTrait, AssertsDbTrait;
 
     protected $app;
     protected $db;
 
-    /**
-     * @throws \LaravelFlux\Fixture\Exceptions\InvalidConfigException
-     */
     public function setUp()
     {
         parent::setUp();

@@ -13,6 +13,7 @@ class CreateUserTable extends MigrationAbstract
             $table->string('username');
             $table->string('password');
             $table->string('key');
+            $table->timestamps();
         });
     }
 
