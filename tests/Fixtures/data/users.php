@@ -6,6 +6,17 @@
  * Time: 17:48
  */
 
-return [
+use app\helpers\HashHelper;
 
+return [
+    [
+        'username' => 'username1',
+        'password' => 'NewVeryHardPassword1',
+        'key' => HashHelper::random(),
+    ],
+    [
+        'username' => 'username2',
+        'password' => 'NewVeryHardPassword2',
+        'key' => HashHelper::random(),
+    ],
 ];

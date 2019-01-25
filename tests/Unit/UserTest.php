@@ -6,8 +6,9 @@
  * Time: 19:03
  */
 
+use app\helpers\HashHelper;
 use app\models\User;
-use Tests\Fixtures\Models\UserFixture;
+use Tests\Fixtures\models\UserFixture;
 use Tests\TestCase;
 
 
@@ -22,22 +23,32 @@ class UserTest extends TestCase
 
     public function testCreate()
     {
-        $username = 'NewUsername';
+        $data = [
+            'username' => 'NewUsername',
+            'password' => 'NewHardPassword!',
+            'key' => HashHelper::random(),
+        ];
 
-        $this->assertDatabaseMissing(User::class, [
-            'username' => $username,
-        ]);
+        $this->assertDatabaseMissing(User::class, $data);
 
-        $user = new User();
-        $user->username = $username;
-        $user->password = 'NewHardPassword!';
-        $user->generateKey();
+        User::create($data);
 
-        $user->save();
-
-        $this->assertDatabaseHas(User::class, [
-            'username' => $username,
-        ]);
+        $this->assertDatabaseHas(User::class, $data);
     }
 
+    public function testDelete()
+    {
+        $data = [
+            'username' => 'username1',
+            'password' => 'NewVeryHardPassword1',
+        ];
+
+        $this->assertDatabaseHas(User::class, $data);
+
+        $user = User::where('username', 'username1')->first();
+        $user->delete();
+
+        $this->assertDatabaseMissing(User::class, $data);
+
+    }
 }

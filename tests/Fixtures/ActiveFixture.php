@@ -30,6 +30,8 @@ class ActiveFixture
 
     public function load()
     {
+        $fixtures = require $this->dataFile;
 
+        $this->modelClass::insert($fixtures);
     }
 }

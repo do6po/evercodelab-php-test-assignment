@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string username
  * @property string password
  * @property string key
+ * @property string created_at
+ * @property string updated_at
  *
  */
 class User extends Model
