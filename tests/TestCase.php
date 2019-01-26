@@ -23,4 +23,11 @@ abstract class TestCase extends BaseTestCase
         $this->db = $this->createDbConnection();
         $this->initFixtures();
     }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        $this->destroyFixtures();
+    }
 }

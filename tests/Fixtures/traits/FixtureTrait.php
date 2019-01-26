@@ -22,12 +22,22 @@ use Tests\Fixtures\ActiveFixture;
  */
 trait FixtureTrait
 {
+    /**
+     * @var ActiveFixture[]|array
+     */
+    protected $activeFixtures;
+
     public function initFixtures(): void
     {
-        $activeFixtures = $this->createInstances($this->fixtures());
+        $this->activeFixtures = $this->createInstances($this->fixtures());
 
-        $this->unloadFixtures($activeFixtures);
-        $this->loadFixtures($activeFixtures);
+        $this->unloadFixtures($this->activeFixtures);
+        $this->loadFixtures($this->activeFixtures);
+    }
+
+    public function destroyFixtures()
+    {
+        $this->unloadFixtures($this->activeFixtures);
     }
 
     /**
