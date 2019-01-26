@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
+    const TABLE_NAME = 'products';
+
     protected $fillable = ['name'];
 
     public $timestamps = false;

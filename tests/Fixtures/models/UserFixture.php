@@ -15,5 +15,5 @@ class UserFixture extends ActiveFixture
 {
     public $dataFile = __DIR__.'/../data/users.php';
 
-    public $modelClass = User::class;
+    public $tableName = User::TABLE_NAME;
 }

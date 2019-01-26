@@ -33,7 +33,7 @@ class DbInit
         $this->capsule->bootEloquent();
     }
 
-    public function getCapsule()
+    public function getCapsule(): Capsule
     {
         return $this->capsule;
     }

@@ -17,6 +17,6 @@ trait CreateDbConnection
      */
     public function createDbConnection()
     {
-        return require_once(__DIR__ . '/../../../bootstrap/db_test.php');
+        return require __DIR__ . '/../../../bootstrap/db_test.php';
     }
 }

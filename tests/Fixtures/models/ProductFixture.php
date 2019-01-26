@@ -15,5 +15,5 @@ class ProductFixture extends ActiveFixture
 {
     public $dataFile = __DIR__ . '/../data/products.php';
 
-    public $modelClass = Product::class;
+    public $tableName = Product::TABLE_NAME;
 }

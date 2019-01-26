@@ -8,30 +8,42 @@
 
 namespace Tests\Fixtures;
 
+use Illuminate\Database\Capsule\Manager as Capsule;
 
-use Illuminate\Database\Eloquent\Model;
-
+/**
+ * Class ActiveFixture
+ *
+ * @property Capsule $db
+ *
+ * @package Tests\Fixtures
+ */
 class ActiveFixture
 {
+    /**
+     * @var string
+     */
+    public $tableName;
+
     /**
      * @var string
      */
     public $dataFile;
 
     /**
-     * @var Model
+     * @var ActiveFixture[]
      */
-    public $modelClass;
+    public $dependencies = [];
 
-    public function unload()
+    /**
+     * @return mixed
+     */
+    public function getData()
     {
-        $this->modelClass::truncate();
+        return require $this->dataFile;
     }
 
-    public function load()
+    public function getDependencies(): array
     {
-        $fixtures = require $this->dataFile;
-
-        $this->modelClass::insert($fixtures);
+        return $this->dependencies;
     }
 }

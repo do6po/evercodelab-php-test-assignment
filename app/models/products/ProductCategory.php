@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ProductCategory extends Model
 {
+    const TABLE_NAME = 'product_categories';
+
     protected $fillable = ['name'];
 
     public $timestamps = false;

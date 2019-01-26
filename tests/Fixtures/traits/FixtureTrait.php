@@ -8,10 +8,13 @@
 
 namespace Tests\Fixtures\traits;
 
+use app\helpers\DbInit;
 use Tests\Fixtures\ActiveFixture;
 
 /**
  * Trait FixtureTrait
+ *
+ * @property DbInit $db
  *
  * @method ActiveFixture[] fixtures():
  *
@@ -19,34 +22,68 @@ use Tests\Fixtures\ActiveFixture;
  */
 trait FixtureTrait
 {
-    public function initFixtures()
+    public function initFixtures(): void
     {
-        $this->unloadFixtures();
-        $this->loadFixtures();
+        $activeFixtures = $this->createInstances($this->fixtures());
+
+        $this->unloadFixtures($activeFixtures);
+        $this->loadFixtures($activeFixtures);
     }
 
-    public function unloadFixtures()
+    /**
+     * @param ActiveFixture[] $activeFixtures
+     */
+    public function unloadFixtures(array $activeFixtures): void
     {
-        $activeFixtures = $this->fixtures();
+        foreach ($activeFixtures as $activeFixture) {
+            $dependencies = $this->createInstances($activeFixture->dependencies);
+            $this->unloadFixtures($dependencies);
 
-        foreach($activeFixtures as $activeFixture) {
-            $fixture = $this->createInstance($activeFixture);
-            $fixture->unload();
+            $this->unload($activeFixture);
         }
     }
 
-    public function loadFixtures()
+    /**
+     * @param ActiveFixture[] $activeFixtures
+     */
+    public function loadFixtures(array $activeFixtures): void
     {
-        $activeFixtures = $this->fixtures();
+        foreach ($activeFixtures as $activeFixture) {
+            $dependencies = $this->createInstances($activeFixture->dependencies);
+            $this->loadFixtures($dependencies);
 
-        foreach($activeFixtures as $activeFixture) {
-            $fixture = $this->createInstance($activeFixture);
-            $fixture->load();
+            $this->load($activeFixture);
         }
     }
 
-    public function createInstance($activeFixtureClass)
+    /**
+     * @param array $activeFixtureClasses
+     *
+     * @return ActiveFixture[]
+     */
+    private function createInstances(array $activeFixtureClasses): array
     {
-        return new $activeFixtureClass;
+        $result = [];
+
+        foreach ($activeFixtureClasses as $activeFixtureClass) {
+            $result[] = $this->createInstance($activeFixtureClass);
+        }
+
+        return $result;
+    }
+
+    private function createInstance($activeFixtureClass): ActiveFixture
+    {
+        return new $activeFixtureClass();
+    }
+
+    private function unload(ActiveFixture $fixture): void
+    {
+        $this->db->getCapsule()->getConnection()->table($fixture->tableName)->delete();
+    }
+
+    private function load(ActiveFixture $fixture): void
+    {
+        $this->db->getCapsule()->getConnection()->table($fixture->tableName)->insert($fixture->getData());
     }
 }
