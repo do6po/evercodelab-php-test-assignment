@@ -8,6 +8,7 @@
 
 namespace Tests\Fixtures\traits;
 
+use app\helpers\DbInit;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 trait CreateDbConnection
@@ -17,6 +18,9 @@ trait CreateDbConnection
      */
     public function createDbConnection()
     {
-        return require __DIR__ . '/../../../bootstrap/db_test.php';
+        /** @var DbInit $db */
+        $db = require __DIR__.'/../../../bootstrap/db_test.php';
+
+        return $db->getCapsule();
     }
 }

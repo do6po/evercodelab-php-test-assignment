@@ -30,11 +30,11 @@ class UserTest extends TestCase
             'key' => HashHelper::generate(),
         ];
 
-        $this->assertDatabaseMissing(User::class, $data);
+        $this->assertDatabaseMissing(User::TABLE_NAME, $data);
 
         User::create($data);
 
-        $this->assertDatabaseHas(User::class, $data);
+        $this->assertDatabaseHas(User::TABLE_NAME, $data);
     }
 
     public function testDelete()
@@ -44,11 +44,11 @@ class UserTest extends TestCase
             'password' => 'NewVeryHardPassword1',
         ];
 
-        $this->assertDatabaseHas(User::class, $data);
+        $this->assertDatabaseHas(User::TABLE_NAME, $data);
 
         $user = User::where('username', 'username1')->first();
         $user->delete();
 
-        $this->assertDatabaseMissing(User::class, $data);
+        $this->assertDatabaseMissing(User::TABLE_NAME, $data);
     }
 }

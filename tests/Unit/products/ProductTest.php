@@ -27,11 +27,11 @@ class ProductTest extends TestCase
             'name' => 'product 5',
         ];
 
-        $this->assertDatabaseMissing(Product::class, $data);
+        $this->assertDatabaseMissing(Product::TABLE_NAME, $data);
 
         Product::create($data);
 
-        $this->assertDatabaseHas(Product::class, $data);
+        $this->assertDatabaseHas(Product::TABLE_NAME, $data);
     }
 
     public function testDelete()
@@ -40,11 +40,11 @@ class ProductTest extends TestCase
             'name' => 'product 1',
         ];
 
-        $this->assertDatabaseHas(Product::class, $data);
+        $this->assertDatabaseHas(Product::TABLE_NAME, $data);
 
         $product = Product::where('name', 'product 1')->first();
         $product->delete();
 
-        $this->assertDatabaseMissing(Product::class, $data);
+        $this->assertDatabaseMissing(Product::TABLE_NAME, $data);
     }
 }

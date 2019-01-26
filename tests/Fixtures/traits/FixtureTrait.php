@@ -8,13 +8,13 @@
 
 namespace Tests\Fixtures\traits;
 
-use app\helpers\DbInit;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use Tests\Fixtures\ActiveFixture;
 
 /**
  * Trait FixtureTrait
  *
- * @property DbInit $db
+ * @property Capsule $db
  *
  * @method ActiveFixture[] fixtures():
  *
@@ -89,11 +89,11 @@ trait FixtureTrait
 
     private function unload(ActiveFixture $fixture): void
     {
-        $this->db->getCapsule()->getConnection()->table($fixture->tableName)->delete();
+        $this->db->getConnection()->table($fixture->tableName)->delete();
     }
 
     private function load(ActiveFixture $fixture): void
     {
-        $this->db->getCapsule()->getConnection()->table($fixture->tableName)->insert($fixture->getData());
+        $this->db->getConnection()->table($fixture->tableName)->insert($fixture->getData());
     }
 }

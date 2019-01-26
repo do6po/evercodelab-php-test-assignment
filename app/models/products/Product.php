@@ -8,7 +8,6 @@
 
 namespace app\models\products;
 
-use app\models\products\ProductCategory;
 use Illuminate\Database\Eloquent\Model;
 
 /**

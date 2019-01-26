@@ -9,6 +9,7 @@
 namespace Tests\Unit\products;
 
 use app\models\products\Product;
+use app\models\products\ProductCategory;
 use Tests\Fixtures\models\ProductsCategoriesFixture;
 use Tests\TestCase;
 
@@ -27,7 +28,7 @@ class ProductsCategoriesTest extends TestCase
      *
      * @dataProvider createRelationsDataProvider
      */
-    public function testCreateRelations($productId, $categoriesCount)
+    public function testGetCategoriesRelations($productId, $categoriesCount)
     {
         /** @var Product $product */
         $product = Product::find($productId);
@@ -44,5 +45,48 @@ class ProductsCategoriesTest extends TestCase
             [3, 2],
             [4, 1],
         ];
+    }
+
+    /**
+     * @param $categoryId
+     * @param $productsCount
+     * @dataProvider productsRelationDataProvider
+     */
+    public function testProductsRelations($categoryId, $productsCount)
+    {
+        /** @var ProductCategory $category */
+        $category = ProductCategory::find($categoryId);
+        $this->assertNotNull($category);
+
+        $this->assertEquals($productsCount, $category->products()->count());
+    }
+
+    public function productsRelationDataProvider()
+    {
+        return [
+            [1, 2],
+            [2, 1],
+            [3, 3],
+            [4, 2],
+        ];
+    }
+
+    public function testSaveRelations()
+    {
+        $productId = 1;
+        $categoryId = 2;
+
+        /** @var Product $product */
+        $product = Product::find($productId);
+        $this->assertNotNull($product);
+
+        $this->assertEquals(2, $product->categories()->count());
+
+        /** @var ProductCategory $category */
+        $category = ProductCategory::find($categoryId);
+        $this->assertNotNull($category);
+
+        $product->categories()->save($category);
+        $this->assertEquals(3, $product->categories()->count());
     }
 }
