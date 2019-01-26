@@ -17,6 +17,7 @@ class CreateProductCategoriesTable extends MigrationAbstract
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedInteger('product_cat_id');
             $table->foreign('product_cat_id')->references('id')->on('product_categories');
+            $table->unique(['product_id', 'product_cat_id']);
         });
     }
 

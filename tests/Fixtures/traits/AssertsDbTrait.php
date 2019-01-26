@@ -28,7 +28,7 @@ trait AssertsDbTrait
     {
         $query = $this->generateQuery($tableName, $data);
 
-        $this->assertTrue($query->count() === 0, 'Data found in database');
+        $this->assertTrue($query->count() === 0, sprintf('Data found in table: %s', $tableName));
     }
 
     /**
@@ -39,7 +39,7 @@ trait AssertsDbTrait
     {
         $query = $this->generateQuery($tableName, $data);
 
-        $this->assertTrue($query->count() > 0, 'Data not found in db');
+        $this->assertTrue($query->count() > 0, sprintf('Data not found in table: %s', $tableName));
     }
 
     /**
@@ -55,17 +55,17 @@ trait AssertsDbTrait
     }
 
     /**
-     * @param $builder
+     * @param Builder $query
      * @param array $data
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    protected function buildQuery(Builder $builder, array $data): Builder
+    protected function buildQuery(Builder $query, array $data): Builder
     {
         foreach ($data as $columnName => $value) {
-            $builder = $builder->where($columnName, $value);
+            $query = $query->where($columnName, $value);
         }
 
-        return $builder;
+        return $query;
     }
 }
