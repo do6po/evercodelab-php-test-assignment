@@ -8,6 +8,7 @@
 
 namespace app\models\products;
 
+use app\models\products\ProductCategory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
+ * @property ProductCategory[] categories
  *
  * @package app\models\products
  */
@@ -25,4 +27,9 @@ class Product extends Model
     protected $fillable = ['name'];
 
     public $timestamps = false;
+
+    public function categories()
+    {
+        return $this->belongsToMany(ProductCategory::class, ProductsCategories::TABLE_NAME, 'product_id', 'product_cat_id');
+    }
 }

@@ -15,5 +15,10 @@ class ProductsCategoriesFixture extends ActiveFixture
 {
     public $tableName = ProductsCategories::TABLE_NAME;
 
-    public $dataFile = __DIR__ . '/../data/products_categories.php';
+    public $dependencies = [
+        ProductFixture::class,
+        ProductCategoryFixture::class,
+    ];
+
+    public $dataFile = __DIR__.'/../data/products_categories.php';
 }

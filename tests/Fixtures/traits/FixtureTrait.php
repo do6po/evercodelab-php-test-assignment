@@ -37,9 +37,9 @@ trait FixtureTrait
     {
         foreach ($activeFixtures as $activeFixture) {
             $dependencies = $this->createInstances($activeFixture->dependencies);
-            $this->unloadFixtures($dependencies);
-
             $this->unload($activeFixture);
+
+            $this->unloadFixtures($dependencies);
         }
     }
 
