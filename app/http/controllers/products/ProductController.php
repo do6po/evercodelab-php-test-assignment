@@ -14,6 +14,9 @@ use app\repositories\products\ProductRepository;
 
 class ProductController extends Controller
 {
+    /**
+     * @var ProductRepository
+     */
     private $productRepository;
 
     public function __construct(ProductRepository $productRepository)
@@ -21,8 +24,20 @@ class ProductController extends Controller
         $this->productRepository = $productRepository;
     }
 
-    public function index()
+    /**
+     * @return string
+     */
+    public function index(): string
     {
         return $this->toJson($this->productRepository->all());
+    }
+
+    /**
+     * @param int $categoryId
+     * @return string
+     */
+    public function getByCategoryId(int $categoryId): string
+    {
+        return $this->toJson($this->productRepository->getByCategoryId($categoryId));
     }
 }

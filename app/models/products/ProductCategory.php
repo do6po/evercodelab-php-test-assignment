@@ -24,10 +24,17 @@ class ProductCategory extends Model
 
     protected $fillable = ['name'];
 
+    protected $visible = ['name'];
+
     public $timestamps = false;
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, ProductsCategories::TABLE_NAME, 'product_cat_id', 'product_id');
+        return $this->belongsToMany(
+            Product::class,
+            ProductsCategories::TABLE_NAME,
+            'product_cat_id',
+            'product_id'
+        );
     }
 }

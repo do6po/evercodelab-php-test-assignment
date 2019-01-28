@@ -11,7 +11,9 @@ namespace Tests\Unit\http\controllers;
 
 use app\http\controllers\products\ProductController;
 use app\models\products\Product;
-use Tests\Fixtures\models\ProductFixture;
+use app\models\products\ProductCategory;
+use Illuminate\Support\Collection;
+use Tests\Fixtures\models\ProductsCategoriesFixture;
 use Tests\TestCase;
 
 class ProductControllerTest extends TestCase
@@ -24,7 +26,7 @@ class ProductControllerTest extends TestCase
     public function fixtures(): array
     {
         return [
-            ProductFixture::class,
+            ProductsCategoriesFixture::class,
         ];
     }
 
@@ -43,5 +45,16 @@ class ProductControllerTest extends TestCase
         $this->assertJson($result);
 
         $this->assertJsonStringEqualsJsonString(Product::all()->toJson(), $result);
+    }
+
+    public function testGetByCategoryId()
+    {
+        $categoryId = 1;
+        $result = $this->controller->getByCategoryId($categoryId);
+        $this->assertJson($result);
+        $category = ProductCategory::find($categoryId);
+        /** @var Collection $products */
+        $products = $category->products;
+        $this->assertJsonStringEqualsJsonString($products->toJson(), $result);
     }
 }

@@ -25,6 +25,8 @@ class Product extends Model
 
     protected $fillable = ['name'];
 
+    protected $visible = ['name'];
+
     public $timestamps = false;
 
     public function categories()
