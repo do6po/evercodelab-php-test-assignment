@@ -27,7 +27,7 @@ class UserTest extends TestCase
         $data = [
             'username' => 'NewUsername',
             'password' => 'NewHardPassword!',
-            'key' => HashHelper::generate(),
+            'token' => HashHelper::generate(),
         ];
 
         $this->assertDatabaseMissing(User::TABLE_NAME, $data);

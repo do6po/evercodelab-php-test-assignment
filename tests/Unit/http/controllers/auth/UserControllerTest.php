@@ -47,12 +47,23 @@ class UserControllerTest extends TestCase
         $this->assertJsonStringEqualsJsonString($result, User::all()->toJson());
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function testLogin()
     {
         $username = 'username1';
-        $request = New Request();
-        $request->add(['username' => $username]);
+        $password = 'password!';
+        $postData = [
+            'username' => $username,
+            'password' => $password,
+        ];
 
-        var_dump($request);die;
+
+        $request = app()->make(Request::class);
+        $request->setMethod('post');
+        $request->replace($postData);
+
+        var_dump($request->post());die;
     }
 }

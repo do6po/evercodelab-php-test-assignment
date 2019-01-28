@@ -12,7 +12,7 @@ class CreateUserTable extends MigrationAbstract
             $table->increments('id');
             $table->string('username');
             $table->string('password');
-            $table->string('key');
+            $table->string('token');
             $table->timestamps();
         });
     }

@@ -6,17 +6,15 @@
  * Time: 17:48
  */
 
-use app\helpers\HashHelper;
-
 return [
     [
         'username' => 'username1',
         'password' => 'NewVeryHardPassword1',
-        'key' => HashHelper::generate(),
+        'token' => 'ASDFGHJKLzxcvbnmqwertyuiop',
     ],
     [
         'username' => 'username2',
         'password' => 'NewVeryHardPassword2',
-        'key' => HashHelper::generate(),
+        'token' => 'ZXCVBNMlkjhgfdsa0987654321',
     ],
 ];

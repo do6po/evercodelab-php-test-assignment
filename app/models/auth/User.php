@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property string username
  * @property string password
- * @property string key
+ * @property string token
  * @property string created_at
  * @property string updated_at
  *
@@ -27,10 +27,20 @@ class User extends Model
     protected $fillable = [
         'username',
         'password',
-        'key',
+        'token',
     ];
 
     protected $visible = ['username'];
+
+    public function setPassword(string $password)
+    {
+        $this->password = md5($password);
+    }
+
+    public function comparePassword(string $password)
+    {
+        return $this->password === md5($password);
+    }
 
     public function generateKey()
     {
