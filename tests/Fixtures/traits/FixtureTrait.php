@@ -16,8 +16,6 @@ use Tests\Fixtures\ActiveFixture;
  *
  * @property Capsule $db
  *
- * @method ActiveFixture[] fixtures():
- *
  * @package Tests\Fixtures\traits
  */
 trait FixtureTrait
@@ -26,6 +24,14 @@ trait FixtureTrait
      * @var ActiveFixture[]|array
      */
     protected $activeFixtures;
+
+    /**
+     * @return ActiveFixture[]
+     */
+    public function fixtures(): array
+    {
+        return [];
+    }
 
     public function initFixtures(): void
     {

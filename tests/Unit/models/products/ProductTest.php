@@ -6,7 +6,7 @@
  * Time: 1:04
  */
 
-namespace Tests\Unit\products;
+namespace Tests\Unit\models\products;
 
 use app\models\products\Product;
 use Tests\Fixtures\models\ProductFixture;
@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
-    public function fixtures()
+    public function fixtures(): array
     {
         return [
             ProductFixture::class,

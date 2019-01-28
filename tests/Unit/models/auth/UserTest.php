@@ -6,7 +6,7 @@
  * Time: 19:03
  */
 
-namespace tests\Unit\auth;
+namespace tests\Unit\models\auth;
 
 use app\helpers\HashHelper;
 use app\models\auth\User;
