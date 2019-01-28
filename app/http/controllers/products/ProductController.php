@@ -9,10 +9,20 @@
 namespace app\http\controllers\products;
 
 
-class ProductController
+use app\http\controllers\Controller;
+use app\repositories\products\ProductRepository;
+
+class ProductController extends Controller
 {
+    private $productRepository;
+
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
     public function index()
     {
-        return 'Hello world! Index.';
+        return $this->toJson($this->productRepository->all());
     }
 }
