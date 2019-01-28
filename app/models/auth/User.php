@@ -44,6 +44,6 @@ class User extends Model
 
     public function generateKey()
     {
-        $this->key = HashHelper::generate();
+        $this->token = HashHelper::generate();
     }
 }
