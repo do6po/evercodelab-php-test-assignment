@@ -30,6 +30,8 @@ class User extends Model
         'key',
     ];
 
+    protected $visible = ['username'];
+
     public function generateKey()
     {
         $this->key = HashHelper::generate();

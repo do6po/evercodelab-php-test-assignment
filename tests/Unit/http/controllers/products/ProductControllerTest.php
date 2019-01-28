@@ -6,7 +6,7 @@
  * Time: 12:17
  */
 
-namespace Tests\Unit\http\controllers;
+namespace Tests\Unit\http\controllers\products;
 
 
 use app\http\controllers\products\ProductController;
