@@ -10,6 +10,10 @@ namespace app\helpers;
 
 class HashHelper
 {
+    /**
+     * @param int $length
+     * @return string
+     */
     public static function generate($length = 20): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -20,5 +24,14 @@ class HashHelper
         }
 
         return hash('sha256', $randomString);
+    }
+
+    /**
+     * @param string $password
+     * @return string
+     */
+    public static function crypt(string $password): string
+    {
+        return md5($password);
     }
 }

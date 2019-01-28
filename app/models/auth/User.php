@@ -34,15 +34,15 @@ class User extends Model
 
     public function setPassword(string $password)
     {
-        $this->password = md5($password);
+        $this->password = HashHelper::crypt($password);
     }
 
     public function comparePassword(string $password)
     {
-        return $this->password === md5($password);
+        return $this->password === HashHelper::crypt($password);
     }
 
-    public function generateKey()
+    public function generateToken()
     {
         $this->token = HashHelper::generate();
     }
