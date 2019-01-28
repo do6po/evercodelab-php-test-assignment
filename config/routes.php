@@ -6,10 +6,8 @@
  * Time: 17:31
  */
 
+use app\http\controllers\products\ProductController;
 use Illuminate\Routing\Router;
 
 /** @var $router Router */
-
-$router->get('/', function () {
-    return 'Hello world!';
-});
+$router->get('/', action(ProductController::class, 'index'));

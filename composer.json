@@ -1,32 +1,35 @@
 {
-    "name": "box/evercodelab-php-test-assignment",
-    "type": "project",
-    "authors": [
-        {
-            "name": "Бойко Сергей",
-            "email": "helvisbox@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-        "php": ">=7.1",
-        "phpunit/phpunit": "7.5.x-dev",
-        "illuminate/database": "^5.8@dev",
-        "illuminate/container": "^5.8@dev",
-        "illuminate/routing": "^5.8@dev",
-        "illuminate/events": "^5.8@dev",
-        "illuminate/console": "^5.8@dev",
-        "robmorgan/phinx": "dev-master"
-    },
-    "autoload": {
-        "psr-4": {
-            "app\\": "app/",
-            "migrations\\": "migrations/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
+  "name": "box/evercodelab-php-test-assignment",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Бойко Сергей",
+      "email": "helvisbox@gmail.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.1",
+    "phpunit/phpunit": "7.5.x-dev",
+    "illuminate/database": "^5.8@dev",
+    "illuminate/container": "^5.8@dev",
+    "illuminate/routing": "^5.8@dev",
+    "illuminate/events": "^5.8@dev",
+    "illuminate/console": "^5.8@dev",
+    "robmorgan/phinx": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "app\\": "app/",
+      "migrations\\": "migrations/"
+    },
+    "files": [
+      "helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  }
 }

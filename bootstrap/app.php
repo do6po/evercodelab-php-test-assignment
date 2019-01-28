@@ -9,6 +9,6 @@
 use Illuminate\Container\Container;
 
 $app = Container::getInstance();
-$app->singleton('app', Container::class);
+$app->singleton('app', $app);
 
 return $app;

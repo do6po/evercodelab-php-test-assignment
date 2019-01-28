@@ -17,6 +17,9 @@ class DbInit
      */
     private $dbConfig;
 
+    /**
+     * @var Capsule
+     */
     private $capsule;
 
     public function __construct(array $dbConfig)
