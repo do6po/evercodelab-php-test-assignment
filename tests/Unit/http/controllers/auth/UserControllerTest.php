@@ -64,6 +64,6 @@ class UserControllerTest extends TestCase
         $request->setMethod('post');
         $request->replace($postData);
 
-        var_dump($request->post());die;
+//        var_dump($request->post());die;
     }
 }

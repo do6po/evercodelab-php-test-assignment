@@ -1,7 +1,7 @@
 paths:
-    migrations: '%%PHINX_CONFIG_DIR%%/migrations'
-    seeds: '%%PHINX_CONFIG_DIR%%/seeds'
-migration_base_class: migrations\MigrationAbstract
+    migrations: '%%PHINX_CONFIG_DIR%%/database/migrations'
+    seeds: '%%PHINX_CONFIG_DIR%%/database/seeds'
+migration_base_class: database\MigrationAbstract
 
 environments:
     default_migration_table: phinxlog

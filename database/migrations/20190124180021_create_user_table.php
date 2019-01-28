@@ -2,7 +2,7 @@
 
 
 use Illuminate\Database\Schema\Blueprint;
-use migrations\MigrationAbstract;
+use database\migrations\MigrationAbstract;
 
 class CreateUserTable extends MigrationAbstract
 {

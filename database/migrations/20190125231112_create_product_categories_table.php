@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use migrations\MigrationAbstract;
+use database\migrations\MigrationAbstract;
 
 class CreateProductCategoriesTable extends MigrationAbstract
 {

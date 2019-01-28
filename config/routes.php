@@ -11,3 +11,6 @@ use Illuminate\Routing\Router;
 
 /** @var $router Router */
 $router->get('/', action(ProductController::class, 'index'));
+
+$router->get('/auth', action(ProductController::class, 'index'));
+$router->post('/login', action(ProductController::class, 'login'));

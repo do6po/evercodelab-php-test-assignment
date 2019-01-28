@@ -6,7 +6,7 @@
  * Time: 19:40
  */
 
-namespace migrations;
+namespace database\migrations;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Schema\Builder;
@@ -37,9 +37,9 @@ abstract class MigrationAbstract extends AbstractMigration
     public function getConfig()
     {
         if ($this->environment === 'test') {
-            return require __DIR__ . '/../config/db_test.php';
+            return require __DIR__ . '/../../config/db_test.php';
         }
 
-        return require __DIR__ . '/../config/db.php';
+        return require __DIR__ . '/../../config/db.php';
     }
 }
