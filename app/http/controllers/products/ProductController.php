@@ -27,7 +27,7 @@ class ProductController extends Controller
     /**
      * @return string
      */
-    public function index(): string
+    public function index()
     {
         return $this->toJson($this->productRepository->all());
     }
@@ -36,7 +36,7 @@ class ProductController extends Controller
      * @param int $categoryId
      * @return string
      */
-    public function getByCategoryId(int $categoryId): string
+    public function getByCategoryId(int $categoryId)
     {
         return $this->toJson($this->productRepository->getByCategoryId($categoryId));
     }
