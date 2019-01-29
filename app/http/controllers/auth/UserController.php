@@ -9,9 +9,9 @@
 namespace app\http\controllers\auth;
 
 use app\http\controllers\Controller;
+use app\http\requests\auth\AuthRequest;
 use app\repositories\auth\UserRepository;
 use app\services\auth\UserService;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -36,12 +36,16 @@ class UserController extends Controller
         return $this->toJson($this->userRepository->all());
     }
 
-    public function login(Request $request)
+    public function login(AuthRequest $request)
     {
-        $username = $request->get('username');
-        $password = $request->get('password');
+        if ($request->hasErrors()) {
+            return $this->toJson($request->errors());
+        }
 
-        $response = $this->userService->login($username, $password);
+        $response = $this->userService->login(
+            $request->get('username'),
+            $request->get('password')
+        );
 
         return $this->toJson($response);
     }

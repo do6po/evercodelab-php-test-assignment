@@ -10,8 +10,10 @@ namespace Tests\Unit\http\controllers\auth;
 
 
 use app\http\controllers\auth\UserController;
+use app\http\requests\auth\AuthRequest;
 use app\models\auth\User;
 use Illuminate\Http\Request;
+use JeffOchoa\ValidatorFactory;
 use Tests\Fixtures\models\UserFixture;
 use Tests\TestCase;
 
@@ -48,29 +50,22 @@ class UserControllerTest extends TestCase
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @runInSeparateProcess
      */
     public function testLogin()
     {
-        $username = 'username1';
-        $password = 'NewVeryHardPassword1';
         $postData = [
-            'username' => $username,
-            'password' => $password,
+            'username' => 'username1',
+            'password' => 'NewVeryHardPassword1',
         ];
 
-
-        $request = app()->make(Request::class);
+        $request = Request::capture();
         $request->setMethod('post');
         $request->replace($postData);
 
-        $result = $this->controller->login($request);
+        $result = $this->controller->login(new AuthRequest($request, new ValidatorFactory()));
 
         $this->assertJson($result);
-
-        $this->assertJsonStringEqualsJsonString(
-            json_encode(['token' => 'ASDFGHJKLzxcvbnmqwertyuiop']),
-            $result
-        );
+        $this->assertJsonStringEqualsJsonString(json_encode(true), $result);
     }
 }

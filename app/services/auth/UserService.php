@@ -28,9 +28,9 @@ class UserService
     {
         $user = $this->userRepository->findByUsername($username);
         if (!is_null($user) && $user->comparePassword($password)) {
-            return [
-                'token' => $user->token,
-            ];
+            header(sprintf('Authorization: Bearer %s', $user->token));
+
+            return true;
         }
 
         return false;
