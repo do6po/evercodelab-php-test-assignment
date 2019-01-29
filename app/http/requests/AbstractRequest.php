@@ -6,7 +6,7 @@
  * Time: 13:05
  */
 
-namespace app\validators;
+namespace app\http\requests;
 
 
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ use JeffOchoa\ValidatorFactory;
  *
  * @package app\validators
  */
-abstract class AbstractValidator
+abstract class AbstractRequest
 {
     /**
      * @var ValidatorFactory
