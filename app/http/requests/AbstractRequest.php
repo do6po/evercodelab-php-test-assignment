@@ -37,15 +37,17 @@ abstract class AbstractRequest
 
     public function __construct(Request $request, ValidatorFactory $validatorFactory)
     {
-        $this->request = $request;
         $this->validatorFactory = $validatorFactory;
+
+        $this->request = $request;
 
         $this->init();
     }
 
     protected function init()
     {
-        $this->validator = $this->validatorFactory->make($this->data(), $this->rules());
+        $this->validator = $this->validatorFactory
+            ->make($this->data(), $this->rules());
     }
 
     public function data(): array
@@ -53,7 +55,10 @@ abstract class AbstractRequest
         return $this->request->all();
     }
 
-    public abstract function rules(): array;
+    public function get($key)
+    {
+        return $this->request->get($key);
+    }
 
     public function hasErrors(): bool
     {
@@ -64,4 +69,6 @@ abstract class AbstractRequest
     {
         return $this->validator->errors();
     }
+
+    public abstract function rules(): array;
 }

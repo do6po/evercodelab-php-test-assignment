@@ -14,23 +14,8 @@ use Illuminate\Http\Request;
 use JeffOchoa\ValidatorFactory;
 use Tests\TestCase;
 
-class AuthValidatorTest extends TestCase
+class AuthRequestTest extends TestCase
 {
-    /**
-     * @var AuthRequest
-     */
-    private $validator;
-
-    /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->validator = app()->make(AuthRequest::class);
-    }
-
     /**
      * @param $postData
      * @param $expectedHasErrors
@@ -40,12 +25,11 @@ class AuthValidatorTest extends TestCase
      */
     public function testValidate($postData, $expectedHasErrors, $expectedMessage)
     {
+        /** @var Request $request */
         $request = app()->make(Request::class);
-
-        $request->setMethod('post');
         $request->replace($postData);
-
         $validator = new AuthRequest($request, new ValidatorFactory());
+
         $this->assertEquals($expectedHasErrors, $validator->hasErrors());
         $this->assertEquals($expectedMessage, $validator->errors()->toArray());
     }
