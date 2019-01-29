@@ -53,7 +53,7 @@ class UserControllerTest extends TestCase
     public function testLogin()
     {
         $username = 'username1';
-        $password = 'password!';
+        $password = 'NewVeryHardPassword1';
         $postData = [
             'username' => $username,
             'password' => $password,
@@ -64,6 +64,13 @@ class UserControllerTest extends TestCase
         $request->setMethod('post');
         $request->replace($postData);
 
-//        var_dump($request->post());die;
+        $result = $this->controller->login($request);
+
+        $this->assertJson($result);
+
+        $this->assertJsonStringEqualsJsonString(
+            json_encode(['token' => 'ASDFGHJKLzxcvbnmqwertyuiop']),
+            $result
+        );
     }
 }
