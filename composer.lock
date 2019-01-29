@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6b1fb44b61252e0fad004da187fd14a",
+    "content-hash": "2ec5c7f0a6ae9a747277acf400b640b5",
     "packages": [
         {
             "name": "cakephp/cache",
@@ -1232,6 +1232,46 @@
             "description": "The Illuminate Validation package.",
             "homepage": "https://laravel.com",
             "time": "2019-01-22T23:57:09+00:00"
+        },
+        {
+            "name": "jeffochoa/validator-factory",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeffochoa/validator-factory.git",
+                "reference": "73f3eaf309a2581f183bb33bcab782e95d9492d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeffochoa/validator-factory/zipball/73f3eaf309a2581f183bb33bcab782e95d9492d9",
+                "reference": "73f3eaf309a2581f183bb33bcab782e95d9492d9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^5.6",
+                "illuminate/translation": "^5.6",
+                "illuminate/validation": "^5.6"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JeffOchoa\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jefferson Ochoa (Jeff)"
+                }
+            ],
+            "description": "Standalone library to use Illuminate\\Validation package outside the Laravel framework.",
+            "time": "2018-09-10T20:21:26+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -3871,7 +3911,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "phpunit/phpunit": 20,
-        "robmorgan/phinx": 20
+        "robmorgan/phinx": 20,
+        "jeffochoa/validator-factory": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

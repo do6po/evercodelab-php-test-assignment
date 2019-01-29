@@ -6,9 +6,7 @@
  * Time: 18:30
  */
 
-use Illuminate\Container\Container;
-
-$app = Container::getInstance();
-$app->singleton('app', $app);
+$app = app();
+app()->singleton('app', $app);
 
 return $app;
