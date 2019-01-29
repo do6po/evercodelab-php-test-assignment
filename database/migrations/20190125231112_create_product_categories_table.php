@@ -9,7 +9,7 @@ class CreateProductCategoriesTable extends MigrationAbstract
     {
         $this->schema->create('product_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
         });
 
         $this->schema->create('products_categories', function (Blueprint $table) {

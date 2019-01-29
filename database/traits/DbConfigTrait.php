@@ -35,7 +35,7 @@ trait DbConfigTrait
 
     public function getConfig()
     {
-        if ($this->environment === 'test') {
+        if (isset($this->environment) && $this->environment === 'test') {
             return require __DIR__ . '/../../config/db_test.php';
         }
 

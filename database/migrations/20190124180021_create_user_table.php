@@ -10,7 +10,7 @@ class CreateUserTable extends MigrationAbstract
     {
         $this->schema->create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password');
             $table->string('token');
             $table->timestamps();
