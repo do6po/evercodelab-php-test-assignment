@@ -31,5 +31,7 @@ trait LoginHelper
         $headerAuthKey = 'Authorization';
 
         $this->request->headers = new HeaderBag([$headerAuthKey => $headerAuthValue,]);
+
+        app()->instance(Request::class, $this->request);
     }
 }

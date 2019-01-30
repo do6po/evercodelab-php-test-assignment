@@ -15,23 +15,31 @@ use app\models\auth\User;
 use Illuminate\Http\Request;
 use JeffOchoa\ValidatorFactory;
 use Tests\Fixtures\models\UserFixture;
+use Tests\Helpers\traits\LoginHelper;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
+    use LoginHelper;
+
     /**
      * @var UserController
      */
     private $controller;
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @var Request
+     */
+    private $request;
+
+    /**
+     *
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->controller = app()->make(UserController::class);
+        $this->request = Request::capture();
     }
 
     public function fixtures(): array
@@ -41,8 +49,14 @@ class UserControllerTest extends TestCase
         ];
     }
 
+    /**
+     * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function testIndex()
     {
+        $this->login();
+        $this->createControllerInstance();
         $result = $this->controller->index();
 
         $this->assertJson($result);
@@ -50,6 +64,7 @@ class UserControllerTest extends TestCase
     }
 
     /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @runInSeparateProcess
      */
     public function testLogin()
@@ -59,13 +74,21 @@ class UserControllerTest extends TestCase
             'password' => 'NewVeryHardPassword1',
         ];
 
-        $request = Request::capture();
-        $request->setMethod('post');
-        $request->replace($postData);
+        $this->request->setMethod('post');
+        $this->request->replace($postData);
 
-        $result = $this->controller->login(new AuthRequest($request, new ValidatorFactory()));
+        $this->createControllerInstance();
+        $result = $this->controller->login(new AuthRequest($this->request, new ValidatorFactory()));
 
         $this->assertJson($result);
         $this->assertJsonStringEqualsJsonString(json_encode(true), $result);
+    }
+
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    private function createControllerInstance()
+    {
+        $this->controller = app()->make(UserController::class);
     }
 }
