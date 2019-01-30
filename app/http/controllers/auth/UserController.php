@@ -56,8 +56,12 @@ class UserController extends Controller
         return $this->toJson($response);
     }
 
+    /**
+     * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
+     */
     public function logout()
     {
+        $this->authService->guard();
 
     }
 }

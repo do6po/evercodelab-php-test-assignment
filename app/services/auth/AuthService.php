@@ -50,7 +50,7 @@ class AuthService
         if (!$this->isAuth()) {
             $user = $this->userRepository->findByUsername($username);
             if (!is_null($user) && $user->comparePassword($password)) {
-                header(sprintf('Authorization: %s', $user->token));
+                header(sprintf('%s: %s', $this->headerAuthKey, $user->token));
 
                 return true;
             }

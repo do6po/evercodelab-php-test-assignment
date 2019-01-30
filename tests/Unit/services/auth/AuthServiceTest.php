@@ -12,12 +12,14 @@ namespace Tests\Unit\services\auth;
 use app\repositories\auth\UserRepository;
 use app\services\auth\AuthService;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\HeaderBag;
 use Tests\Fixtures\models\UserFixture;
+use Tests\Helpers\traits\LoginHelper;
 use Tests\TestCase;
 
 class AuthServiceTest extends TestCase
 {
+    use LoginHelper;
+
     /**
      * @var Request
      */
@@ -37,7 +39,6 @@ class AuthServiceTest extends TestCase
 
         $this->request = Request::capture();
         $this->service = new AuthService($this->request, app()->make(UserRepository::class));
-
     }
 
     public function fixtures(): array
@@ -57,8 +58,7 @@ class AuthServiceTest extends TestCase
 
     public function testIsAuth()
     {
-        $this->setAuthUser('ZXCVBNMlkjhgfdsa0987654321');
-
+        $this->login();
         $this->assertTrue($this->service->isAuth());
     }
 
@@ -99,16 +99,9 @@ class AuthServiceTest extends TestCase
      */
     public function testLoginForAlreadyAuthorized()
     {
-        $this->setAuthUser('ZXCVBNMlkjhgfdsa0987654321');
+        $this->login();
 
         $this->assertFalse($this->service->login('username1', 'NewVeryHardPassword1'));
     }
 
-    private function setAuthUser(string $headerAuthValue)
-    {
-        $headerAuthKey = 'Authorization';
-
-        $this->request->headers = new HeaderBag([$headerAuthKey => $headerAuthValue,]);
-        $this->assertTrue($this->request->hasHeader($headerAuthKey));
-    }
 }
