@@ -63,5 +63,6 @@ class UserController extends Controller
     {
         $this->authService->guard();
 
+        return $this->toJson($this->authService->logout());
     }
 }

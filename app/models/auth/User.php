@@ -32,18 +32,28 @@ class User extends Model
 
     protected $visible = ['username'];
 
-    public function setPassword(string $password)
+    public function setPassword(string $password): void
     {
         $this->password = HashHelper::crypt($password);
     }
 
-    public function comparePassword(string $password)
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    public function comparePassword(string $password): bool
     {
         return $this->password === HashHelper::crypt($password);
     }
 
-    public function generateToken()
+    public function generateToken(): void
     {
         $this->token = HashHelper::generate();
+    }
+
+    public function eraseToken(): void
+    {
+        $this->token = null;
     }
 }

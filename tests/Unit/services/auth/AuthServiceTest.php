@@ -9,6 +9,7 @@
 namespace Tests\Unit\services\auth;
 
 
+use app\models\auth\User;
 use app\repositories\auth\UserRepository;
 use app\services\auth\AuthService;
 use Illuminate\Http\Request;
@@ -90,7 +91,7 @@ class AuthServiceTest extends TestCase
         return [
             ['username1', 'NewVeryHardPassword1', true],
             ['username2', 'NewVeryHardPassword2', true],
-            ['username3', 'ASasjdhasljk', false],
+            ['username3', 'IncorrectPassword', false],
         ];
     }
 
@@ -101,7 +102,43 @@ class AuthServiceTest extends TestCase
     {
         $this->login();
 
+        $this->assertDatabaseHas(User::TABLE_NAME, [
+            'token' => 'ZXCVBNMlkjhgfdsa0987654321'
+        ]);
+
         $this->assertFalse($this->service->login('username1', 'NewVeryHardPassword1'));
+
+        $this->assertDatabaseHas(User::TABLE_NAME, [
+            'token' => 'ZXCVBNMlkjhgfdsa0987654321'
+        ]);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
+    public function testLoginForUserWithoutToken()
+    {
+        $username = 'username3';
+        /** @var User $user */
+        $user = User::where('username', $username)->first();
+        $this->assertEmpty($user->token);
+
+        $this->assertTrue($this->service->login($username, 'NewVeryHardPassword3'));
+
+        /** @var User $user */
+        $user = User::where('username', $username)->first();
+        $this->assertNotEmpty($user->token);
+    }
+
+    public function testLogout()
+    {
+        $this->login();
+
+        $this->assertTrue($this->service->logout());
+    }
+
+    public function testLogoutForNotAuthorized()
+    {
+        $this->assertFalse($this->service->logout());
+    }
 }

@@ -50,10 +50,26 @@ class AuthService
         if (!$this->isAuth()) {
             $user = $this->userRepository->findByUsername($username);
             if (!is_null($user) && $user->comparePassword($password)) {
-                header(sprintf('%s: %s', $this->headerAuthKey, $user->token));
+                $user->generateToken();
+                $user->save();
+                header(sprintf('%s: %s', $this->headerAuthKey, $user->getToken()));
 
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function logout(): bool
+    {
+        if ($this->isAuth()) {
+            $user = $this->user();
+            $user->eraseToken();
+            return $user->save();
         }
 
         return false;
