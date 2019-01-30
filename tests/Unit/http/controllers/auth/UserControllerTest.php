@@ -85,6 +85,32 @@ class UserControllerTest extends TestCase
     }
 
     /**
+     * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function testLogout()
+    {
+        $this->login();
+        $this->createControllerInstance();
+        $result = $this->controller->logout();
+        $this->assertJson($result);
+
+        $this->assertJsonStringEqualsJsonString(json_encode(true), $result);
+    }
+
+    /**
+     * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @expectedException  \Chiron\Http\Exception\Client\ForbiddenHttpException
+     * @runInSeparateProcess
+     */
+    public function testLogoutForNotAuthorized()
+    {
+        $this->createControllerInstance();
+        $this->controller->logout();
+    }
+
+    /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     private function createControllerInstance()
