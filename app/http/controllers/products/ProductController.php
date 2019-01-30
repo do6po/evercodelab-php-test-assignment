@@ -11,33 +11,38 @@ namespace app\http\controllers\products;
 
 use app\http\controllers\Controller;
 use app\repositories\products\ProductRepository;
+use app\services\products\ProductService;
 
 class ProductController extends Controller
 {
     /**
-     * @var ProductRepository
+     * @var ProductService
      */
-    private $productRepository;
+    private $productService;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductService $productService)
     {
-        $this->productRepository = $productRepository;
+        $this->productService = $productService;
     }
 
     /**
      * @return string
      */
-    public function index()
+    public function categories()
     {
-        return $this->toJson($this->productRepository->all());
+        return $this->toJson(
+            $this->productService->categories()
+        );
     }
 
     /**
      * @param int $categoryId
      * @return string
      */
-    public function getByCategoryId(int $categoryId)
+    public function productsByCategoryId(int $categoryId)
     {
-        return $this->toJson($this->productRepository->getByCategoryId($categoryId));
+        return $this->toJson(
+            $this->productService->getByCategoryId($categoryId)
+        );
     }
 }

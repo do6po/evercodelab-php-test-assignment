@@ -41,20 +41,31 @@ class ProductControllerTest extends TestCase
 
     public function testIndex()
     {
-        $result = $this->controller->index();
+        $result = $this->controller->categories();
         $this->assertJson($result);
 
-        $this->assertJsonStringEqualsJsonString(Product::all()->toJson(), $result);
+        $this->assertJsonStringEqualsJsonString(ProductCategory::all()->toJson(), $result);
     }
 
-    public function testGetByCategoryId()
+    /**
+     * @param $categoryId
+     * @dataProvider productsByCategoryIdDataProvider
+     */
+    public function testProductsByCategoryId($categoryId)
     {
-        $categoryId = 1;
-        $result = $this->controller->getByCategoryId($categoryId);
-        $this->assertJson($result);
+        $result = $this->controller->productsByCategoryId($categoryId);
         $category = ProductCategory::find($categoryId);
-        /** @var Collection $products */
-        $products = $category->products;
-        $this->assertJsonStringEqualsJsonString($products->toJson(), $result);
+
+        $this->assertJsonStringEqualsJsonString($category->products->toJson(), $result);
+    }
+
+    public function productsByCategoryIdDataProvider()
+    {
+        return [
+            [1],
+            [2],
+            [3],
+            [4],
+        ];
     }
 }

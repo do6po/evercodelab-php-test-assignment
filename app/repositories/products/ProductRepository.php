@@ -10,6 +10,7 @@ namespace app\repositories\products;
 
 
 use app\models\products\Product;
+use app\models\products\ProductCategory;
 use Illuminate\Support\Collection;
 
 class ProductRepository
@@ -43,5 +44,10 @@ class ProductRepository
                 $query->whereId($categoryId);
             }
         )->get();
+    }
+
+    public function categories()
+    {
+        return ProductCategory::all();
     }
 }
