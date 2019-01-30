@@ -16,18 +16,10 @@ use Illuminate\Support\Collection;
 class ProductRepository
 {
     /**
-     * @return Product[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public function all()
-    {
-        return Product::all();
-    }
-
-    /**
      * @param int $id
      * @return Product|null
      */
-    public function getById(int $id)
+    public function findById(int $id)
     {
         return Product::find($id);
     }
@@ -36,7 +28,7 @@ class ProductRepository
      * @param int $categoryId
      * @return Product[]|Collection
      */
-    public function getByCategoryId(int $categoryId): Collection
+    public function findByCategoryId(int $categoryId): Collection
     {
         return Product::whereHas(
             'categories',
@@ -46,8 +38,20 @@ class ProductRepository
         )->get();
     }
 
+    /**
+     * @return ProductCategory[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function categories()
     {
         return ProductCategory::all();
+    }
+
+    /**
+     * @param int $categoryId
+     * @return ProductCategory|null
+     */
+    public function findCategoryById(int $categoryId)
+    {
+        return ProductCategory::find($categoryId);
     }
 }
