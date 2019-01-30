@@ -21,7 +21,8 @@
     "illuminate/validation": "^5.6",
     "robmorgan/phinx": "dev-master",
     "jeffochoa/validator-factory": "dev-master",
-    "fzaninotto/faker": "^1.9@dev"
+    "fzaninotto/faker": "^1.9@dev",
+    "chiron/http-exceptions": "dev-master"
   },
   "autoload": {
     "psr-4": {

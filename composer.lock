@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ec6545b969e2f42e9fb9dd179377b29",
+    "content-hash": "55d14cfc8978fac4969a267d6e08e785",
     "packages": [
         {
             "name": "cakephp/cache",
@@ -339,6 +339,50 @@
                 "utility"
             ],
             "time": "2018-09-14T01:26:50+00:00"
+        },
+        {
+            "name": "chiron/http-exceptions",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ncou/Chiron-HttpExceptions.git",
+                "reference": "e52cbf26bcc4ada8a5c70dca4767cb9c1a946f59"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ncou/Chiron-HttpExceptions/zipball/e52cbf26bcc4ada8a5c70dca4767cb9c1a946f59",
+                "reference": "e52cbf26bcc4ada8a5c70dca4767cb9c1a946f59",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.9.2",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chiron\\Http\\Exception\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Exception classes for Http Exception.",
+            "homepage": "https://github.com/ncou/Chiron-HttpExceptions",
+            "keywords": [
+                "api",
+                "exceptions",
+                "http",
+                "httpException",
+                "problem",
+                "rfc7231",
+                "rfc7807"
+            ],
+            "time": "2019-01-03T23:38:45+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -2472,12 +2516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "f859b18020903eef590d1c1ce4d36f6ee1312d08"
+                "reference": "ec363060503ae6f070739aca153ea6119c60b440"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/f859b18020903eef590d1c1ce4d36f6ee1312d08",
-                "reference": "f859b18020903eef590d1c1ce4d36f6ee1312d08",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/ec363060503ae6f070739aca153ea6119c60b440",
+                "reference": "ec363060503ae6f070739aca153ea6119c60b440",
                 "shasum": ""
             },
             "require": {
@@ -2517,7 +2561,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2019-01-28T15:42:12+00:00"
+            "time": "2019-01-29T09:22:31+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -3963,7 +4007,8 @@
         "phpunit/phpunit": 20,
         "robmorgan/phinx": 20,
         "jeffochoa/validator-factory": 20,
-        "fzaninotto/faker": 20
+        "fzaninotto/faker": 20,
+        "chiron/http-exceptions": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
