@@ -43,7 +43,7 @@ class AuthService
     /**
      * @param string $username
      * @param string $password
-     * @return bool
+     * @return array|bool
      */
     public function login(string $username, string $password)
     {
@@ -54,7 +54,7 @@ class AuthService
                 $user->save();
                 header(sprintf('%s: %s', $this->headerAuthKey, $user->getToken()));
 
-                return true;
+                return ['token' => $user->getToken()];
             }
         }
 

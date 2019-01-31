@@ -77,20 +77,30 @@ class AuthServiceTest extends TestCase
     /**
      * @param $username
      * @param $password
-     * @param $expected
+     * @param bool $isSuccess
      * @dataProvider loginDataProvider
      * @runInSeparateProcess
      */
-    public function testLogin($username, $password, $expected)
+    public function testLogin($username, $password, $isSuccess = true)
     {
-        $this->assertEquals($expected, $this->service->login($username, $password));
+        $result = $this->service->login($username, $password);
+        /** @var User $user */
+        $user = User::where('username', $username)->first();
+
+        if (!$isSuccess) {
+            $expected = $isSuccess;
+        } else {
+            $expected = ['token' => $user->getToken()];
+        }
+
+        $this->assertEquals($expected, $result);
     }
 
     public function loginDataProvider()
     {
         return [
-            ['username1', 'NewVeryHardPassword1', true],
-            ['username2', 'NewVeryHardPassword2', true],
+            ['username1', 'NewVeryHardPassword1'],
+            ['username2', 'NewVeryHardPassword2'],
             ['username3', 'IncorrectPassword', false],
         ];
     }
@@ -123,10 +133,15 @@ class AuthServiceTest extends TestCase
         $user = User::where('username', $username)->first();
         $this->assertEmpty($user->token);
 
-        $this->assertTrue($this->service->login($username, 'NewVeryHardPassword3'));
+        $response = $this->service->login($username, 'NewVeryHardPassword3');
+        $user = User::where('username', $username)->first();
+
+        $this->assertEquals(
+            ['token' => $user->getToken()],
+            $response
+        );
 
         /** @var User $user */
-        $user = User::where('username', $username)->first();
         $this->assertNotEmpty($user->token);
     }
 
