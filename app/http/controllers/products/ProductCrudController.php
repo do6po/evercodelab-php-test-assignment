@@ -25,14 +25,16 @@ class ProductCrudController extends Controller
         $this->productService = $productService;
     }
 
-    public function create(ProductRequest $request)
+    /**
+     * @param ProductRequest $request
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function add(ProductRequest $request)
     {
-//        if ($request->hasErrors()) {
-//
-//        }
-//
-//        return $this->toJson(
-//            $this->productService->add($name, $categoryIds)
-//        );
+        $productName = $request->get('name');
+        $categoryIds = $request->get('categoryIds');
+
+        return $this->productService->add($productName, $categoryIds);
     }
 }

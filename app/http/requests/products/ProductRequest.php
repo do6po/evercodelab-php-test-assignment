@@ -16,7 +16,8 @@ class ProductRequest extends AbstractRequest
     public function rules(): array
     {
         return [
-
+            'name' => ['required', 'min:3'],
+            'categoryIds' => ['array', 'exists:categories,id', 'nullable'],
         ];
     }
 }

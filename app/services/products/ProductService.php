@@ -45,10 +45,10 @@ class ProductService
      *
      * @param string $productName
      * @param array $categoryIds
-     * @return bool
+     * @return array
      * @throws \Exception
      */
-    public function add(string $productName, array $categoryIds = [])
+    public function add(string $productName, $categoryIds = []): array
     {
         $connection = Product::resolveConnection();
         $connection->beginTransaction();
@@ -62,11 +62,13 @@ class ProductService
             $product->categories()->attach($categoryIds);
 
             $connection->commit();
-            return $product->id;
+
+            return ['id' => $product->id];
+
         } catch (\Exception $exception) {
             $connection->rollBack();
 
-            return false;
+            throw $exception;
         }
     }
 
