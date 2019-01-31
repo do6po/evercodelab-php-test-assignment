@@ -60,7 +60,10 @@ class AuthService
             }
         }
 
-        throw new AuthException(['username' => 'Incorrect credentials.']);
+        throw new AuthException(
+            ['username' => $message = 'Incorrect credentials!'],
+            $message
+        );
     }
 
     /**

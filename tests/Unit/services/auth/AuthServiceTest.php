@@ -9,6 +9,7 @@
 namespace Tests\Unit\services\auth;
 
 
+use app\exceptions\auth\AuthException;
 use app\models\auth\User;
 use app\repositories\auth\UserRepository;
 use app\services\auth\AuthService;
@@ -77,23 +78,17 @@ class AuthServiceTest extends TestCase
     /**
      * @param $username
      * @param $password
-     * @param bool $isSuccess
-     * @dataProvider loginDataProvider
+     * @throws \app\exceptions\auth\AuthException
      * @runInSeparateProcess
+     * @dataProvider loginDataProvider
      */
-    public function testLogin($username, $password, $isSuccess = true)
+    public function testLogin($username, $password)
     {
         $result = $this->service->login($username, $password);
         /** @var User $user */
         $user = User::where('username', $username)->first();
 
-        if (!$isSuccess) {
-            $expected = $isSuccess;
-        } else {
-            $expected = ['token' => $user->getToken()];
-        }
-
-        $this->assertEquals($expected, $result);
+        $this->assertEquals(['token' => $user->getToken()], $result);
     }
 
     public function loginDataProvider()
@@ -101,12 +96,20 @@ class AuthServiceTest extends TestCase
         return [
             ['username1', 'NewVeryHardPassword1'],
             ['username2', 'NewVeryHardPassword2'],
-            ['username3', 'IncorrectPassword', false],
         ];
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \app\exceptions\auth\AuthException
+     * @expectedException \app\exceptions\auth\AuthException
+     */
+    public function testLoginWithWrongData()
+    {
+        $this->service->login('username3', 'IncorrectPassword');
+    }
+
+    /**
+     * @throws \app\exceptions\auth\AuthException
      */
     public function testLoginForAlreadyAuthorized()
     {
@@ -115,8 +118,11 @@ class AuthServiceTest extends TestCase
         $this->assertDatabaseHas(User::TABLE_NAME, [
             'token' => 'ZXCVBNMlkjhgfdsa0987654321'
         ]);
-
-        $this->assertFalse($this->service->login('username1', 'NewVeryHardPassword1'));
+        try {
+            $this->assertFalse($this->service->login('username1', 'NewVeryHardPassword1'));
+        } catch (AuthException $exception) {
+            $this->assertEquals(['username' => 'Incorrect credentials!'], $exception->getMessages());
+        }
 
         $this->assertDatabaseHas(User::TABLE_NAME, [
             'token' => 'ZXCVBNMlkjhgfdsa0987654321'
