@@ -23,7 +23,7 @@ class ValidationExceptionTest extends TestCase
 
         $exception = new RequestValidationException($messages);
 
-        $this->assertEquals(422, $exception->getCode());
+        $this->assertEquals(422, $exception->getStatusCode());
         $this->assertEquals($messages, $exception->getMessages());
     }
 }

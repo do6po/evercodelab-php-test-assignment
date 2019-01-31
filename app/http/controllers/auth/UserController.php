@@ -44,10 +44,6 @@ class UserController extends Controller
 
     public function login(AuthRequest $request)
     {
-        if ($request->hasErrors()) {
-            return $this->toJson($request->errors());
-        }
-
         $response = $this->authService->login(
             $request->get('username'),
             $request->get('password')

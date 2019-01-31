@@ -9,6 +9,7 @@
 namespace Tests\Unit\validators\auth;
 
 
+use app\exceptions\validations\RequestValidationException;
 use app\http\requests\auth\AuthRequest;
 use Illuminate\Http\Request;
 use JeffOchoa\ValidatorFactory;
@@ -18,19 +19,16 @@ class AuthRequestTest extends TestCase
 {
     /**
      * @param $postData
-     * @param $expectedHasErrors
      * @param $expectedMessage
-     * @dataProvider validateDataProvider
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \app\exceptions\validations\RequestValidationException
+     * @dataProvider validateDataProvider
      */
-    public function testValidate($postData, $expectedHasErrors, $expectedMessage)
+    public function testValidateCorrectData($postData, $expectedMessage)
     {
-        /** @var Request $request */
-        $request = app()->make(Request::class);
-        $request->replace($postData);
-        $validator = new AuthRequest($request, new ValidatorFactory());
+        $request = $this->genRequest($postData);
 
-        $this->assertEquals($expectedHasErrors, $validator->hasErrors());
+        $validator = new AuthRequest($request, new ValidatorFactory());
         $this->assertEquals($expectedMessage, $validator->errors()->toArray());
     }
 
@@ -38,32 +36,65 @@ class AuthRequestTest extends TestCase
     {
         return [
             [
-                [],
-                true,
-                [
-                    'username' => ['The username field is required.'],
-                    'password' => ['The password field is required.'],
-                ],
-            ],
-            [
                 [
                     'username' => 'username',
                     'password' => 'password',
                 ],
-                false,
                 []
             ],
+
+        ];
+    }
+
+    /**
+     * @param $postData
+     * @param $expectedMessage
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @dataProvider validateWithErrorDataProvider
+     */
+    public function testValidateWithErrorDataProvider($postData, $expectedMessage)
+    {
+        $request = $this->genRequest($postData);
+
+        try {
+            new AuthRequest($request, new ValidatorFactory());
+        } catch (RequestValidationException $exception) {
+            $this->assertEquals($expectedMessage, $exception->getMessages());
+        }
+    }
+
+    public function validateWithErrorDataProvider()
+    {
+        return [
             [
                 [
                     'username' => 'us',
                     'password' => 'pass',
                 ],
-                true,
                 [
                     'username' => ['The username must be at least 3 characters.'],
                     'password' => ['The password must be at least 8 characters.'],
                 ]
-            ]
+            ],
+            [
+                [],
+                [
+                    'username' => ['The username field is required.'],
+                    'password' => ['The password field is required.'],
+                ],
+            ],
         ];
+    }
+
+    /**
+     * @param $data
+     * @return Request
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function genRequest($data)
+    {
+        /** @var Request $request */
+        $request = app()->make(Request::class);
+        return $request->replace($data);
     }
 }

@@ -9,15 +9,15 @@
 namespace app\exceptions;
 
 
-abstract class ApiException extends \Exception
+abstract class AbstractApiException extends \Exception
 {
     protected $messages = [];
 
     protected $statusCode = 0;
 
-    public function __construct(array $messages, string $message = "", int $code = 0)
+    public function __construct(array $messages, string $message = "")
     {
-        parent::__construct($message, $code);
+        parent::__construct($message);
 
         $this->messages = $messages;
     }
@@ -25,5 +25,10 @@ abstract class ApiException extends \Exception
     public function getMessages(): array
     {
         return $this->messages;
+    }
+
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
     }
 }

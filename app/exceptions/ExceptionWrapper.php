@@ -30,13 +30,14 @@ class ExceptionWrapper
         $this->request = $request;
     }
 
+
     public function wrap()
     {
         try {
             $response = $this->router->dispatch($this->request);
             $response->send();
-        } catch (ApiException $exception) {
-            http_response_code($exception->getCode());
+        } catch (AbstractApiException $exception) {
+            http_response_code($exception->getStatusCode());
             echo json_encode($exception->getMessages(), JSON_PRETTY_PRINT);
             return;
         } catch (\Exception $exception) {

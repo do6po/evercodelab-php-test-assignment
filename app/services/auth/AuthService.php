@@ -8,6 +8,7 @@
 
 namespace app\services\auth;
 
+use app\exceptions\auth\AuthException;
 use app\repositories\auth\UserRepository;
 use Chiron\Http\Exception\Client\ForbiddenHttpException;
 use Illuminate\Http\Request;
@@ -43,7 +44,8 @@ class AuthService
     /**
      * @param string $username
      * @param string $password
-     * @return array|bool
+     * @return array
+     * @throws AuthException
      */
     public function login(string $username, string $password)
     {
@@ -58,11 +60,7 @@ class AuthService
             }
         }
 
-        return [
-            'error' => [
-                'auth' => false,
-            ]
-        ];
+        throw new AuthException(['username' => 'Incorrect credentials.']);
     }
 
     /**

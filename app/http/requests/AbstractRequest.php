@@ -38,6 +38,7 @@ abstract class AbstractRequest
 
     /**
      * AbstractRequest constructor.
+     *
      * @param Request $request
      * @param ValidatorFactory $validatorFactory
      * @throws RequestValidationException
