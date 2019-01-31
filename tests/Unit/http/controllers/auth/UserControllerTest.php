@@ -65,6 +65,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \app\exceptions\validations\RequestValidationException
      * @runInSeparateProcess
      */
     public function testLogin()
@@ -105,7 +106,7 @@ class UserControllerTest extends TestCase
     /**
      * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @expectedException  \Chiron\Http\Exception\Client\ForbiddenHttpException
+     * @expectedException \app\exceptions\auth\ForbiddenHttpException
      * @runInSeparateProcess
      */
     public function testLogoutForNotAuthorized()

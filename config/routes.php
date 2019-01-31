@@ -13,6 +13,7 @@ use Illuminate\Routing\Router;
 
 /** @var $router Router */
 $router->get('/', action(HomeController::class, 'index'));
+
 $router->get('/users', action(UserController::class, 'index'));
 $router->post('/login', action(UserController::class, 'login'));
 $router->post('/logout', action(UserController::class, 'logout'));

@@ -38,11 +38,11 @@ class ExceptionWrapper
             $response->send();
         } catch (AbstractApiException $exception) {
             http_response_code($exception->getStatusCode());
-            echo json_encode($exception->getMessages(), JSON_PRETTY_PRINT);
+            echo json_encode($exception->getMessages());
             return;
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
-            echo json_encode($exception->getMessage(), JSON_PRETTY_PRINT);
+            echo json_encode($exception->getMessage());
         }
     }
 }

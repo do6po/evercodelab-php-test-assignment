@@ -9,8 +9,8 @@
 namespace app\services\auth;
 
 use app\exceptions\auth\AuthException;
+use app\exceptions\auth\ForbiddenHttpException;
 use app\repositories\auth\UserRepository;
-use Chiron\Http\Exception\Client\ForbiddenHttpException;
 use Illuminate\Http\Request;
 
 class AuthService
@@ -107,7 +107,9 @@ class AuthService
     public function guard()
     {
         if (!$this->isAuth()) {
-            throw new ForbiddenHttpException('You do not have access to this page.');
+            throw new ForbiddenHttpException([
+                'error' => $message = 'You do not have access to this page!'
+            ], $message);
         }
     }
 }

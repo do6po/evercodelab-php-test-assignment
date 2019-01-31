@@ -65,8 +65,8 @@ class AuthServiceTest extends TestCase
     }
 
     /**
-     * @expectedException \Chiron\Http\Exception\Client\ForbiddenHttpException
-     * @expectedExceptionMessage You do not have access to this page.
+     * @expectedException \app\exceptions\auth\ForbiddenHttpException
+     * @expectedExceptionMessage You do not have access to this page!
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function testGuard()
