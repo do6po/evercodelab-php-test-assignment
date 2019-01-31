@@ -52,6 +52,11 @@ abstract class AbstractRequest
 
     public function data(): array
     {
+        return $this->all();
+    }
+
+    public function all(): array
+    {
         return $this->request->all();
     }
 
