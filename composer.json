@@ -10,7 +10,6 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=7.1",
-    "phpunit/phpunit": "7.5.x-dev",
     "illuminate/database": "^5.6",
     "illuminate/container": "^5.6",
     "illuminate/routing": "^5.6",
@@ -23,6 +22,9 @@
     "jeffochoa/validator-factory": "dev-master",
     "fzaninotto/faker": "^1.9@dev",
     "chiron/http-exceptions": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "7.5.x-dev"
   },
   "autoload": {
     "psr-4": {

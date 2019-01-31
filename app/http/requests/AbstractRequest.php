@@ -9,6 +9,7 @@
 namespace app\http\requests;
 
 
+use app\exceptions\validations\RequestValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
 use JeffOchoa\ValidatorFactory;
@@ -35,6 +36,12 @@ abstract class AbstractRequest
      */
     protected $request;
 
+    /**
+     * AbstractRequest constructor.
+     * @param Request $request
+     * @param ValidatorFactory $validatorFactory
+     * @throws RequestValidationException
+     */
     public function __construct(Request $request, ValidatorFactory $validatorFactory)
     {
         $this->validatorFactory = $validatorFactory;
@@ -42,12 +49,26 @@ abstract class AbstractRequest
         $this->request = $request;
 
         $this->init();
+        $this->handle();
     }
 
     protected function init()
     {
         $this->validator = $this->validatorFactory
             ->make($this->data(), $this->rules());
+    }
+
+    /**
+     * @throws RequestValidationException
+     */
+    public function handle()
+    {
+        if ($this->hasErrors()) {
+            throw new RequestValidationException(
+                $this->errors()->toArray(),
+                'Request validation error!'
+            );
+        }
     }
 
     public function data(): array

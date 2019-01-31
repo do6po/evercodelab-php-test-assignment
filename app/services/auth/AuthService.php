@@ -58,7 +58,11 @@ class AuthService
             }
         }
 
-        return false;
+        return [
+            'error' => [
+                'auth' => false,
+            ]
+        ];
     }
 
     /**
