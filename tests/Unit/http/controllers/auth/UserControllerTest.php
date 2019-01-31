@@ -69,8 +69,9 @@ class UserControllerTest extends TestCase
      */
     public function testLogin()
     {
+        $username = 'username1';
         $postData = [
-            'username' => 'username1',
+            'username' => $username,
             'password' => 'NewVeryHardPassword1',
         ];
 
@@ -80,8 +81,11 @@ class UserControllerTest extends TestCase
         $this->createControllerInstance();
         $result = $this->controller->login(new AuthRequest($this->request, new ValidatorFactory()));
 
+        /** @var User $user */
+        $user = User::where('username', $username)->first();
+
         $this->assertJson($result);
-        $this->assertJsonStringEqualsJsonString(json_encode(true), $result);
+        $this->assertJsonStringEqualsJsonString(json_encode(['token' => $user->getToken()]), $result);
     }
 
     /**
