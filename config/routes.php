@@ -6,6 +6,7 @@
  * Time: 17:31
  */
 
+use app\exceptions\http\PageNotFoundException;
 use app\http\controllers\auth\UserController;
 use app\http\controllers\HomeController;
 use app\http\controllers\products\ProductController;
@@ -17,3 +18,12 @@ $router->get('/', action(HomeController::class, 'index'));
 $router->get('/users', action(UserController::class, 'index'));
 $router->post('/login', action(UserController::class, 'login'));
 $router->post('/logout', action(UserController::class, 'logout'));
+
+$router->get('/categories', action(ProductController::class, 'categories'));
+$router->get('/category/{id}/products', action(ProductController::class, 'productsByCategoryId'));
+
+$router->any('{all}', function () {
+    throw new PageNotFoundException([
+        'error' => $message = 'Page not found!'
+    ], $message);
+});
