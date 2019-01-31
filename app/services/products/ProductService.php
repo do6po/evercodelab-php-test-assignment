@@ -135,7 +135,7 @@ class ProductService
     /**
      * @param int $id
      * @return bool|null
-     * @throws NotFoundHttpException
+     * @throws NotFoundHttpException|\Exception
      */
     public function deleteCategory(int $id)
     {
@@ -153,7 +153,7 @@ class ProductService
     {
         /** @var Product $product */
         if (($product = $this->productRepository->findById($id)) === null) {
-            throw new NotFoundHttpException('Page not found!');
+            throw new NotFoundHttpException('Product not found!');
         }
         return $product;
     }
@@ -167,7 +167,7 @@ class ProductService
     {
         /** @var ProductCategory $category */
         if (($category = $this->productRepository->findCategoryById($id)) === null) {
-            throw new NotFoundHttpException('Page not found!');
+            throw new NotFoundHttpException('Category not found!');
         }
         return $category;
     }

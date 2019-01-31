@@ -245,6 +245,9 @@ class ProductServiceTest extends TestCase
         ]);
     }
 
+    /**
+     * @throws \Chiron\Http\Exception\Client\NotFoundHttpException
+     */
     public function testDeleteCategory()
     {
         $categoryId = 1;

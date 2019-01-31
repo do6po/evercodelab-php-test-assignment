@@ -39,7 +39,7 @@ class ProductControllerTest extends TestCase
         $this->controller = app()->make(ProductController::class);
     }
 
-    public function testIndex()
+    public function testCategories()
     {
         $result = $this->controller->categories();
         $this->assertJson($result);
