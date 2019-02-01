@@ -49,4 +49,51 @@ class ProductCrudController extends Controller
 
         return $this->productService->addCategory($categoryName);
     }
+
+    /**
+     * @param int $id
+     * @param ProductRequest $request
+     * @return bool|int
+     * @throws \Exception
+     */
+    public function edit(int $id, ProductRequest $request)
+    {
+        $productName = $request->get('name');
+        $categoryIds = $request->get('categoryIds');
+
+        return $this->productService->edit($id, $productName, $categoryIds);
+    }
+
+    /**
+     * @param int $id
+     * @param CategoryRequest $request
+     * @return bool
+     * @throws \app\exceptions\http\NotFoundHttpException
+     */
+    public function editCategory(int $id, CategoryRequest $request)
+    {
+        $categoryName = $request->get('name');
+
+        return $this->productService->editCategory($id, $categoryName);
+    }
+
+    /**
+     * @param int $id
+     * @return bool|null
+     * @throws \app\exceptions\http\NotFoundHttpException
+     */
+    public function delete(int $id)
+    {
+        return $this->productService->delete($id);
+    }
+
+    /**
+     * @param int $id
+     * @return bool|null
+     * @throws \app\exceptions\http\NotFoundHttpException
+     */
+    public function deleteCategory(int $id)
+    {
+        return $this->productService->deleteCategory($id);
+    }
 }

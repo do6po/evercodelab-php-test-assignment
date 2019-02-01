@@ -11,7 +11,7 @@ namespace app\exceptions\http;
 
 use app\exceptions\AbstractApiException;
 
-class PageNotFoundException extends AbstractApiException
+class NotFoundHttpException extends AbstractApiException
 {
     protected $statusCode = 404;
 }

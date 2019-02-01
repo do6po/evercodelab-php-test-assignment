@@ -9,10 +9,10 @@
 namespace app\services\products;
 
 
+use app\exceptions\http\NotFoundHttpException;
 use app\models\products\Product;
 use app\models\products\ProductCategory;
 use app\repositories\products\ProductRepository;
-use Chiron\Http\Exception\Client\NotFoundHttpException;
 
 class ProductService
 {
@@ -155,7 +155,10 @@ class ProductService
     {
         /** @var Product $product */
         if (($product = $this->productRepository->findById($id)) === null) {
-            throw new NotFoundHttpException('Product not found!');
+            throw new NotFoundHttpException([
+                'error' => $message = 'Product not found!',
+                $message
+            ]);
         }
         return $product;
     }
@@ -169,7 +172,10 @@ class ProductService
     {
         /** @var ProductCategory $category */
         if (($category = $this->productRepository->findCategoryById($id)) === null) {
-            throw new NotFoundHttpException('Category not found!');
+            throw new NotFoundHttpException([
+                'error' => $message = 'Category not found!',
+                $message
+            ]);
         }
         return $category;
     }
