@@ -117,7 +117,7 @@ class ProductService
             'name' => $categoryName
         ]);
 
-        return $category->id;
+        return ['id' => $category->id];
     }
 
     /**

@@ -157,40 +157,40 @@ class ProductServiceTest extends TestCase
      */
     public function testEditWithoutCategoryIds()
     {
-        $productId = 1;
+        $result = 1;
         $productName = 'edited product name';
         $categoryIds = [];
 
         $this->assertDatabaseMissing(Product::TABLE_NAME, [
-            'id' => $productId,
+            'id' => $result,
             'name' => $productName,
         ]);
 
         $this->assertDatabaseHas(ProductsCategories::TABLE_NAME, [
-            'product_id' => $productId,
+            'product_id' => $result,
             'product_cat_id' => 1,
         ]);
 
         $this->assertDatabaseHas(ProductsCategories::TABLE_NAME, [
-            'product_id' => $productId,
+            'product_id' => $result,
             'product_cat_id' => 3,
         ]);
 
-        $productId = $this->service->edit($productId, $productName, $categoryIds);
-        $this->assertTrue($productId);
+        $result = $this->service->edit($result, $productName, $categoryIds);
+        $this->assertTrue($result);
 
         $this->assertDatabaseHas(Product::TABLE_NAME, [
-            'id' => $productId,
+            'id' => $result,
             'name' => $productName,
         ]);
 
         $this->assertDatabaseMissing(ProductsCategories::TABLE_NAME, [
-            'product_id' => $productId,
+            'product_id' => $result,
             'product_cat_id' => 1,
         ]);
 
         $this->assertDatabaseMissing(ProductsCategories::TABLE_NAME, [
-            'product_id' => $productId,
+            'product_id' => $result,
             'product_cat_id' => 3,
         ]);
     }
@@ -202,8 +202,8 @@ class ProductServiceTest extends TestCase
             'name' => $categoryName,
         ]);
 
-        $category = $this->service->addCategory($categoryName);
-        $this->assertIsInt($category);
+        $result = $this->service->addCategory($categoryName);
+        $this->assertIsArray($result);
 
         $this->assertDatabaseHas(ProductCategory::TABLE_NAME, [
             'name' => $categoryName,

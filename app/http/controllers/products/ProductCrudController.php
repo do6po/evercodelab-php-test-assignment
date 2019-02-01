@@ -10,6 +10,7 @@ namespace app\http\controllers\products;
 
 
 use app\http\controllers\Controller;
+use app\http\requests\products\CategoryRequest;
 use app\http\requests\products\ProductRequest;
 use app\services\products\ProductService;
 
@@ -36,5 +37,16 @@ class ProductCrudController extends Controller
         $categoryIds = $request->get('categoryIds');
 
         return $this->productService->add($productName, $categoryIds);
+    }
+
+    /**
+     * @param CategoryRequest $request
+     * @return mixed
+     */
+    public function addCategory(CategoryRequest $request)
+    {
+        $categoryName = $request->get('name');
+
+        return $this->productService->addCategory($categoryName);
     }
 }

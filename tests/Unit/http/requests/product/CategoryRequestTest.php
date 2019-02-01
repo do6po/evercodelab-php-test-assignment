@@ -3,44 +3,43 @@
  * Created by PhpStorm.
  * User: box
  * Date: 01.02.19
- * Time: 17:57
+ * Time: 19:38
  */
 
 namespace Tests\Unit\http\requests\product;
 
 
 use app\exceptions\AbstractApiException;
-use app\http\requests\products\ProductRequest;
+use app\http\requests\products\CategoryRequest;
 use JeffOchoa\ValidatorFactory;
 use Tests\Fixtures\models\ProductsCategoriesFixture;
 use Tests\Helpers\traits\RequestGenerator;
 use Tests\TestCase;
 
-class ProductRequestTest extends TestCase
+class CategoryRequestTest extends TestCase
 {
     use RequestGenerator;
 
     public function fixtures(): array
     {
         return [
-            ProductsCategoriesFixture::class
+            ProductsCategoriesFixture::class,
         ];
     }
 
     /**
      * @param $data
      * @param $expectMessages
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @dataProvider validationDataProvider
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function testValidation($data, $expectMessages)
     {
         $request = $this->genRequest($data);
-
         $factory = app()->make(ValidatorFactory::class);
 
         try {
-            new ProductRequest($request, $factory);
+            new CategoryRequest($request, $factory);
         } catch (AbstractApiException $exception) {
             $this->assertEquals($expectMessages, $exception->getMessages());
         }
@@ -49,17 +48,14 @@ class ProductRequestTest extends TestCase
     public function validationDataProvider()
     {
         return [
-            [['name' => '',], ['name' => ['The name field is required.']]],
-            [['name' => 'Pr',], ['name' => ['The name must be at least 3 characters.']]],
             [
-                [
-                    'name' => 'Product name 10',
-                    'categoryIds' => [1, 2, 3, 10],
-                ],
-                [
-                    'categoryIds' => ['The selected category ids is invalid.'],
-                ]
-            ]
+                ['name' => ''],
+                ['name' => ['The name field is required.']],
+            ],
+            [
+                ['name' => 'Ca'],
+                ['name' => ['The name must be at least 3 characters.']],
+            ],
         ];
     }
 }
