@@ -4,13 +4,13 @@ namespace Tests\Fixtures\traits;
 
 use Illuminate\Container\Container;
 
-trait CreatesApplication
+trait CreateApplication
 {
     /**
      * @return Container
      */
     public function createApplication()
     {
-        return app();
+        return bootstrap('app.php');
     }
 }

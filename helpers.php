@@ -1,8 +1,4 @@
 <?php
-
-use app\helpers\DbInit;
-use Illuminate\Container\Container;
-
 /**
  * Created by PhpStorm.
  * User: Boiko Sergii
@@ -10,6 +6,8 @@ use Illuminate\Container\Container;
  * Time: 0:31
  */
 
+use app\helpers\DbInit;
+use Illuminate\Container\Container;
 
 /**
  * @return Container
@@ -35,6 +33,11 @@ function db(string $configName)
 function config(string $fileName)
 {
     return require __DIR__ . '/config/' . $fileName;
+}
+
+function bootstrap(string $fileName)
+{
+    return require __DIR__ . '/bootstrap/' . $fileName;
 }
 
 /**

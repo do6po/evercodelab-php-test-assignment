@@ -12,6 +12,7 @@ namespace Tests\Unit\http\requests\product;
 use app\exceptions\AbstractApiException;
 use app\http\requests\products\ProductRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\DatabasePresenceVerifier;
 use JeffOchoa\ValidatorFactory;
 use Tests\Fixtures\models\ProductsCategoriesFixture;
 use Tests\Helpers\traits\RequestGenerator;
@@ -38,8 +39,10 @@ class ProductRequestTest extends TestCase
     {
         $request = $this->genRequest($data);
 
+        $factory = app()->make(ValidatorFactory::class);
+
         try {
-            new ProductRequest($request, new ValidatorFactory());
+            new ProductRequest($request, $factory);
         } catch (AbstractApiException $exception) {
             $this->assertEquals($expectMessages, $exception->getMessages());
         }
@@ -53,10 +56,10 @@ class ProductRequestTest extends TestCase
             [
                 [
                     'name' => 'Product name 10',
-                    'categoryIds' => [1, 2, 3,]
+                    'categoryIds' => [1, 2, 3, 10],
                 ],
                 [
-                    'categoryIds' => [],
+                    'categoryIds' => ['The selected category ids is invalid.'],
                 ]
             ]
         ];

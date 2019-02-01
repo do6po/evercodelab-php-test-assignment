@@ -60,13 +60,6 @@ abstract class AbstractRequest
     {
         $this->validator = $this->validatorFactory
             ->make($this->data(), $this->rules());
-        /** @var Capsule $capsule */
-        $capsule = app()->make('db');
-        $this->validatorFactory->setPresenceVerifier(
-            new DatabasePresenceVerifier(
-                $capsule->getDatabaseManager()
-            )
-        );
     }
 
     /**
