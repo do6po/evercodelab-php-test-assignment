@@ -36,7 +36,7 @@ class ProductCrudController extends Controller
         $productName = $request->get('name');
         $categoryIds = $request->get('categoryIds');
 
-        return $this->productService->add($productName, $categoryIds);
+        return $this->toJson($this->productService->add($productName, $categoryIds));
     }
 
     /**
@@ -47,7 +47,7 @@ class ProductCrudController extends Controller
     {
         $categoryName = $request->get('name');
 
-        return $this->productService->addCategory($categoryName);
+        return $this->toJson($this->productService->addCategory($categoryName));
     }
 
     /**
@@ -61,7 +61,7 @@ class ProductCrudController extends Controller
         $productName = $request->get('name');
         $categoryIds = $request->get('categoryIds');
 
-        return $this->productService->edit($id, $productName, $categoryIds);
+        return $this->toJson($this->productService->edit($id, $productName, $categoryIds));
     }
 
     /**
@@ -74,7 +74,7 @@ class ProductCrudController extends Controller
     {
         $categoryName = $request->get('name');
 
-        return $this->productService->editCategory($id, $categoryName);
+        return $this->toJson($this->productService->editCategory($id, $categoryName));
     }
 
     /**
@@ -84,7 +84,7 @@ class ProductCrudController extends Controller
      */
     public function delete(int $id)
     {
-        return $this->productService->delete($id);
+        return $this->toJson($this->productService->delete($id));
     }
 
     /**
@@ -94,6 +94,6 @@ class ProductCrudController extends Controller
      */
     public function deleteCategory(int $id)
     {
-        return $this->productService->deleteCategory($id);
+        return $this->toJson($this->productService->deleteCategory($id));
     }
 }

@@ -211,7 +211,7 @@ class ProductServiceTest extends TestCase
     }
 
     /**
-     * @throws \Chiron\Http\Exception\Client\NotFoundHttpException
+     * @throws \app\exceptions\http\NotFoundHttpException
      */
     public function testEditCategory()
     {
@@ -231,6 +231,9 @@ class ProductServiceTest extends TestCase
         ]);
     }
 
+    /**
+     * @throws \app\exceptions\http\NotFoundHttpException
+     */
     public function testDelete()
     {
         $productId = 1;
@@ -246,7 +249,7 @@ class ProductServiceTest extends TestCase
     }
 
     /**
-     * @throws \Chiron\Http\Exception\Client\NotFoundHttpException
+     * @throws \app\exceptions\http\NotFoundHttpException
      */
     public function testDeleteCategory()
     {

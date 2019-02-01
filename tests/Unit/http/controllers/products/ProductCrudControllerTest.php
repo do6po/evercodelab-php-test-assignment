@@ -11,12 +11,13 @@ namespace Tests\Unit\http\controllers\products;
 
 use app\http\controllers\products\ProductCrudController;
 use app\models\products\Product;
+use app\models\products\ProductCategory;
 use app\models\products\ProductsCategories;
 use Tests\Fixtures\models\ProductsCategoriesFixture;
 use Tests\Helpers\traits\RequestGenerator;
 use Tests\TestCase;
 
-class ProductsCrudControllerTest extends TestCase
+class ProductCrudControllerTest extends TestCase
 {
     use RequestGenerator;
 
@@ -58,6 +59,46 @@ class ProductsCrudControllerTest extends TestCase
     }
 
     public function deleteDataProvider()
+    {
+        return [
+            [1],
+            [2],
+            [3],
+            [4],
+        ];
+    }
+
+    /**
+     * @param $id
+     * @dataProvider deleteCategoryDataProvider
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \app\exceptions\http\NotFoundHttpException
+     */
+    public function testDeleteCategory($id)
+    {
+        $controller = $this->makeController();
+
+        $this->assertDatabaseHas(ProductCategory::TABLE_NAME, [
+            'id' => $id
+        ]);
+
+        $this->assertDatabaseHas(ProductsCategories::TABLE_NAME, [
+            'product_cat_id' => $id
+        ]);
+
+        $result = $controller->deleteCategory($id);
+        $this->assertJsonStringEqualsJsonString(json_encode(true), $result);
+
+        $this->assertDatabaseMissing(ProductCategory::TABLE_NAME, [
+            'id' => $id
+        ]);
+
+        $this->assertDatabaseMissing(ProductsCategories::TABLE_NAME, [
+            'product_cat_id' => $id
+        ]);
+    }
+
+    public function deleteCategoryDataProvider()
     {
         return [
             [1],
