@@ -95,11 +95,11 @@ trait FixtureTrait
 
     private function unload(ActiveFixture $fixture): void
     {
-        $this->db->getConnection()->table($fixture->tableName)->delete();
+        $this->db->table($fixture->tableName)->delete();
     }
 
     private function load(ActiveFixture $fixture): void
     {
-        $this->db->getConnection()->table($fixture->tableName)->insert($fixture->getData());
+        $this->db->table($fixture->tableName)->insert($fixture->getData());
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use app\helpers\DbInit;
 use Illuminate\Container\Container;
 
 /**
@@ -16,6 +17,24 @@ use Illuminate\Container\Container;
 function app()
 {
     return Container::getInstance();
+}
+
+/**
+ * @param string $configName
+ * @return \Illuminate\Database\Capsule\Manager
+ */
+function db(string $configName)
+{
+    return (new DbInit(config($configName)))->getCapsule();
+}
+
+/**
+ * @param string $fileName
+ * @return mixed
+ */
+function config(string $fileName)
+{
+    return require __DIR__ . '/config/' . $fileName;
 }
 
 /**

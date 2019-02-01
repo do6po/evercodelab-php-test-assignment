@@ -18,9 +18,9 @@ trait CreateDbConnection
      */
     public function createDbConnection()
     {
-        /** @var DbInit $db */
-        $db = require __DIR__.'/../../../bootstrap/db_test.php';
+        $db = db('db_test.php');
+        $db->setContainer(app());
 
-        return $db->getCapsule();
+        return $db->getConnection();
     }
 }

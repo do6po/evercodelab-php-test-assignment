@@ -50,7 +50,7 @@ trait AssertsDbTrait
      */
     protected function generateQuery(string $tableName, array $data): Builder
     {
-        $query = $this->db->getConnection()->table($tableName);
+        $query = $this->db->table($tableName);
         return $this->buildQuery($query, $data);
     }
 

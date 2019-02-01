@@ -6,7 +6,4 @@
  * Time: 18:30
  */
 
-$app = app();
-app()->singleton('app', $app);
-
-return $app;
+return app();

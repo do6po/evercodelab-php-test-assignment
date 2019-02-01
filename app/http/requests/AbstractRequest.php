@@ -10,7 +10,9 @@ namespace app\http\requests;
 
 
 use app\exceptions\validations\RequestValidationException;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Http\Request;
+use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\Validator;
 use JeffOchoa\ValidatorFactory;
 
@@ -53,10 +55,20 @@ abstract class AbstractRequest
         $this->handle();
     }
 
+
     protected function init()
     {
         $this->validator = $this->validatorFactory
             ->make($this->data(), $this->rules());
+
+//        /** @var Capsule $capsule */
+//        $capsule = app()->singleton('db');
+//        var_dump($capsule);die;
+//        $this->validatorFactory->setPresenceVerifier(
+//            new DatabasePresenceVerifier(
+//                $capsule->getDatabaseManager()
+//            )
+//        );
     }
 
     /**

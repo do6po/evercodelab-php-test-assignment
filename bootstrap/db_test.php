@@ -6,6 +6,4 @@
  * Time: 18:36
  */
 
-use app\helpers\DbInit;
-
-return new DbInit(require  __DIR__ . '/../config/db_test.php');
+return db('db_test.php');

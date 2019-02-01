@@ -17,8 +17,7 @@ use Illuminate\Routing\UrlGenerator;
 
 ini_set('display_errors', 1);
 
-/** @var \Illuminate\Container\Container $app */
-$app = require_once(__DIR__ . '/../bootstrap/app.php');
+$app = app();
 
 /** @var \Illuminate\Database\Capsule\Manager $db */
 $db = require_once(__DIR__ . '/../bootstrap/db.php');
