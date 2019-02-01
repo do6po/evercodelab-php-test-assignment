@@ -9,7 +9,7 @@
 namespace Tests\Unit\http\controllers\products;
 
 
-use app\http\controllers\products\ProductCrudController;
+use app\http\controllers\api\products\ProductCrudController;
 use app\http\requests\products\ProductRequest;
 use app\models\products\Product;
 use app\models\products\ProductCategory;

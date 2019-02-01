@@ -9,7 +9,7 @@
 namespace Tests\Unit\http\controllers\auth;
 
 
-use app\http\controllers\auth\UserController;
+use app\http\controllers\api\auth\UserController;
 use app\http\requests\auth\AuthRequest;
 use app\models\auth\User;
 use Illuminate\Http\Request;

@@ -6,7 +6,7 @@
  * Time: 17:51
  */
 
-namespace app\http\controllers\auth;
+namespace app\http\controllers\api\auth;
 
 use app\http\controllers\Controller;
 use app\http\requests\auth\AuthRequest;

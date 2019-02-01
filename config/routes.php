@@ -7,10 +7,10 @@
  */
 
 use app\exceptions\http\NotFoundHttpException;
-use app\http\controllers\auth\UserController;
+use app\http\controllers\api\auth\UserController;
 use app\http\controllers\HomeController;
-use app\http\controllers\products\ProductController;
-use app\http\controllers\products\ProductCrudController;
+use app\http\controllers\api\products\ProductController;
+use app\http\controllers\api\products\ProductCrudController;
 use Illuminate\Routing\Router;
 
 /** @var $router Router */
@@ -18,23 +18,23 @@ use Illuminate\Routing\Router;
 $router->get('/', action(HomeController::class, 'index'));
 
 #authorisation
-$router->get('/users', action(UserController::class, 'index'));
-$router->post('/login', action(UserController::class, 'login'));
-$router->post('/logout', action(UserController::class, 'logout'));
+$router->get('/api/users', action(UserController::class, 'index'));
+$router->post('/api/login', action(UserController::class, 'login'));
+$router->post('/api/logout', action(UserController::class, 'logout'));
 
 #read
-$router->get('/categories', action(ProductController::class, 'categories'));
-$router->get('/category/{id}/products', action(ProductController::class, 'productsByCategoryId'));
+$router->get('/api/categories', action(ProductController::class, 'categories'));
+$router->get('/api/category/{id}/products', action(ProductController::class, 'productsByCategoryId'));
 
 #crud
-$router->post('/product/add', action(ProductCrudController::class, 'add'));
-$router->post('/category/add', action(ProductCrudController::class, 'addCategory'));
+$router->post('/api/product/add', action(ProductCrudController::class, 'add'));
+$router->post('/api/category/add', action(ProductCrudController::class, 'addCategory'));
 
-$router->put('/product/{id}', action(ProductCrudController::class, 'edit'));
-$router->put('/category/{id}', action(ProductCrudController::class, 'editCategory'));
+$router->put('/api/product/{id}', action(ProductCrudController::class, 'edit'));
+$router->put('/api/category/{id}', action(ProductCrudController::class, 'editCategory'));
 
-$router->delete('/product/{id}', action(ProductCrudController::class, 'delete'));
-$router->delete('/category/{id}', action(ProductCrudController::class, 'deleteCategory'));
+$router->delete('/api/product/{id}', action(ProductCrudController::class, 'delete'));
+$router->delete('/api/category/{id}', action(ProductCrudController::class, 'deleteCategory'));
 
 
 

@@ -6,7 +6,7 @@
  * Time: 12:54
  */
 
-namespace app\http\controllers\products;
+namespace app\http\controllers\api\products;
 
 
 use app\http\controllers\Controller;

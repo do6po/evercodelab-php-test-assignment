@@ -9,7 +9,7 @@
 namespace Tests\Unit\http\controllers\products;
 
 
-use app\http\controllers\products\ProductController;
+use app\http\controllers\api\products\ProductController;
 use app\models\products\Product;
 use app\models\products\ProductCategory;
 use Illuminate\Support\Collection;
