@@ -18,15 +18,24 @@ abstract class TestCase extends BaseTestCase
     /**
      * @var Capsule
      */
-    protected $db;
+    protected $connection;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->app = $this->createApplication();
-        $this->db = $this->createDbConnection();
+        $this->initApplication();
         $this->initFixtures();
+    }
+
+    protected function initApplication()
+    {
+        $this->app = $this->createApplication();
+        $capsule = $this->createDb();
+
+        $this->app->instance('db', $capsule);
+
+        $this->connection = $capsule->getConnection();
     }
 
     public function tearDown()

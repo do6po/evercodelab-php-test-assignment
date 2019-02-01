@@ -14,7 +14,7 @@ use Tests\Fixtures\ActiveFixture;
 /**
  * Trait FixtureTrait
  *
- * @property Capsule $db
+ * @property Capsule $connection
  *
  * @package Tests\Fixtures\traits
  */
@@ -95,11 +95,11 @@ trait FixtureTrait
 
     private function unload(ActiveFixture $fixture): void
     {
-        $this->db->table($fixture->tableName)->delete();
+        $this->connection->table($fixture->tableName)->delete();
     }
 
     private function load(ActiveFixture $fixture): void
     {
-        $this->db->table($fixture->tableName)->insert($fixture->getData());
+        $this->connection->table($fixture->tableName)->insert($fixture->getData());
     }
 }

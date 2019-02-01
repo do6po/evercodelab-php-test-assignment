@@ -126,8 +126,7 @@ class ProductsCategoriesTest extends TestCase
 
     private function getProductsCategoriesRelationCount($productId, $categoryId)
     {
-        return $this->db
-            ->getConnection()
+        return $this->connection
             ->table(ProductsCategories::TABLE_NAME)
             ->where('product_id', $productId)
             ->where('product_cat_id', $categoryId)

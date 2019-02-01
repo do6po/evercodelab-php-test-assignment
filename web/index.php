@@ -22,7 +22,7 @@ $app = app();
 /** @var \Illuminate\Database\Capsule\Manager $db */
 $db = require_once(__DIR__ . '/../bootstrap/db.php');
 
-$app->singleton('db', $db);
+$app->instance('db', $db);
 
 $request = Request::capture();
 $app->instance(Request::class, $request);

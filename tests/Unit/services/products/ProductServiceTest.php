@@ -50,9 +50,9 @@ class ProductServiceTest extends TestCase
             'name' => $productName,
         ]);
 
-        $productId = $this->service->add($productName);
+        $result = $this->service->add($productName);
 
-        $this->assertIsInt($productId);
+        $this->assertIsArray($result);
 
         $this->assertDatabaseHas(Product::TABLE_NAME, [
             'name' => $productName,
@@ -80,21 +80,21 @@ class ProductServiceTest extends TestCase
             'product_cat_id' => 2,
         ]);
 
-        $productId = $this->service->add($productName, $categoryIds);
+        $result = $this->service->add($productName, $categoryIds);
 
-        $this->assertIsInt($productId);
+        $this->assertIsArray($result);
 
         $this->assertDatabaseHas(Product::TABLE_NAME, [
             'name' => $productName,
         ]);
 
         $this->assertDatabaseHas(ProductsCategories::TABLE_NAME, [
-            'product_id' => $productId,
+            'product_id' => $result,
             'product_cat_id' => 1,
         ]);
 
         $this->assertDatabaseHas(ProductsCategories::TABLE_NAME, [
-            'product_id' => $productId,
+            'product_id' => $result,
             'product_cat_id' => 2,
         ]);
     }

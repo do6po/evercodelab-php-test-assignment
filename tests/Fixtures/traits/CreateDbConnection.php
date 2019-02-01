@@ -16,11 +16,8 @@ trait CreateDbConnection
     /**
      * @return Capsule
      */
-    public function createDbConnection()
+    public function createDb()
     {
-        $db = db('db_test.php');
-        $db->setContainer(app());
-
-        return $db->getConnection();
+        return db('db_test.php');
     }
 }

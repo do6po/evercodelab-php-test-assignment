@@ -13,10 +13,13 @@ use app\exceptions\validations\RequestValidationException;
 use app\http\requests\auth\AuthRequest;
 use Illuminate\Http\Request;
 use JeffOchoa\ValidatorFactory;
+use Tests\Helpers\traits\RequestGenerator;
 use Tests\TestCase;
 
 class AuthRequestTest extends TestCase
 {
+    use RequestGenerator;
+
     /**
      * @param $postData
      * @param $expectedMessage
@@ -86,15 +89,5 @@ class AuthRequestTest extends TestCase
         ];
     }
 
-    /**
-     * @param $data
-     * @return Request
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    protected function genRequest($data)
-    {
-        /** @var Request $request */
-        $request = app()->make(Request::class);
-        return $request->replace($data);
-    }
+
 }

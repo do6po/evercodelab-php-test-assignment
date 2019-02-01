@@ -14,7 +14,7 @@ use Illuminate\Database\Query\Builder;
 /**
  * Trait AssertsDbTrait
  *
- * @property Capsule $db
+ * @property Capsule $connection
  *
  * @package Tests\Fixtures\traits
  */
@@ -50,7 +50,7 @@ trait AssertsDbTrait
      */
     protected function generateQuery(string $tableName, array $data): Builder
     {
-        $query = $this->db->table($tableName);
+        $query = $this->connection->table($tableName);
         return $this->buildQuery($query, $data);
     }
 
