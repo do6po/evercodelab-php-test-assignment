@@ -50,21 +50,8 @@ class UserControllerTest extends TestCase
     }
 
     /**
-     * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function testIndex()
-    {
-        $this->login();
-        $this->createControllerInstance();
-        $result = $this->controller->index();
-
-        $this->assertJson($result);
-        $this->assertJsonStringEqualsJsonString($result, User::all()->toJson());
-    }
-
-    /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \app\exceptions\auth\AuthException
      * @throws \app\exceptions\validations\RequestValidationException
      * @runInSeparateProcess
      */
@@ -90,8 +77,8 @@ class UserControllerTest extends TestCase
     }
 
     /**
-     * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @runInSeparateProcess
      */
     public function testLogout()
     {
@@ -100,19 +87,10 @@ class UserControllerTest extends TestCase
         $result = $this->controller->logout();
         $this->assertJson($result);
 
-        $this->assertJsonStringEqualsJsonString(json_encode(true), $result);
-    }
-
-    /**
-     * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @expectedException \app\exceptions\auth\ForbiddenHttpException
-     * @runInSeparateProcess
-     */
-    public function testLogoutForNotAuthorized()
-    {
-        $this->createControllerInstance();
-        $this->controller->logout();
+        $this->assertJsonStringEqualsJsonString(
+            json_encode(['message' => 'Successfully logged out']),
+            $result
+        );
     }
 
     /**

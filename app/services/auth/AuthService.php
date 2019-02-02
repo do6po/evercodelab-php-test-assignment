@@ -9,7 +9,7 @@
 namespace app\services\auth;
 
 use app\exceptions\auth\AuthException;
-use app\exceptions\auth\ForbiddenHttpException;
+use app\exceptions\auth\UnauthorizedHttpException;
 use app\repositories\auth\UserRepository;
 use Illuminate\Http\Request;
 
@@ -67,14 +67,18 @@ class AuthService
     }
 
     /**
-     * @return bool
+     * @return bool|array
      */
-    public function logout(): bool
+    public function logout()
     {
         if ($this->isAuth()) {
             $user = $this->user();
             $user->eraseToken();
-            return $user->save();
+            if ($user->save()) {
+                header(sprintf('%s:', $this->headerAuthKey));
+
+                return ['message' => 'Successfully logged out'];
+            }
         }
 
         return false;
@@ -102,13 +106,13 @@ class AuthService
     }
 
     /**
-     * @throws ForbiddenHttpException
+     * @throws UnauthorizedHttpException
      */
     public function guard()
     {
         if (!$this->isAuth()) {
-            throw new ForbiddenHttpException([
-                'error' => $message = 'You do not have access to this page!'
+            throw new UnauthorizedHttpException([
+                'error' => $message = 'You unauthorized!'
             ], $message);
         }
     }

@@ -11,7 +11,8 @@ namespace app\http\middleware;
 
 use app\services\auth\AuthService;
 use Closure;
-use http\Env\Request;
+use Illuminate\Http\Request;
+
 
 class AuthMiddleware
 {
@@ -29,7 +30,7 @@ class AuthMiddleware
      * @param Request $request
      * @param Closure $next
      * @return mixed
-     * @throws \app\exceptions\auth\ForbiddenHttpException
+     * @throws \app\exceptions\auth\UnauthorizedHttpException
      */
     public function handle(Request $request, Closure $next)
     {

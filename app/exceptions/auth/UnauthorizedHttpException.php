@@ -11,7 +11,7 @@ namespace app\exceptions\auth;
 
 use app\exceptions\AbstractApiException;
 
-class ForbiddenHttpException extends AbstractApiException
+class UnauthorizedHttpException extends AbstractApiException
 {
-    protected $statusCode = 403;
+    protected $statusCode = 401;
 }

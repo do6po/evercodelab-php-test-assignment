@@ -27,7 +27,20 @@
 - Код-стайл и соблюдение стандартов
 - Покрытие кода тестами (функциональными или unit)
 
-## Описание API
+## Запуск
+- Для запуска требуется Vagrant
+```bash
+vagrant plugin install vagrant-hostmanager
+vagrant up
+```
+- Если запуск осуществляется на ОС Linux
+```bash
+echo "192.168.84.137  store.test" >> /etc/hosts
+```
+
+- Заходим на http://store.test
+
+# Описание API
 
 # Product store
 
@@ -44,34 +57,76 @@
 
 + Response 200 (application/json)
 
-        {
-            "token": "AuthTokenString"
-        }
+    + Headers
+    
+            Authorization: AuthTokenString
+
+    + Body
+
+            {
+                 "token": "AuthTokenString"
+            }
 
 + Response 422 (application/json)
 
-        {
-            "username": [
-              "The username must be at least 3 characters.",
-              "The username field is required."
-              ],
-            "password": [
-               "The password must be at least 8 characters.",
-            ]
-        }
+    + Body
+
+            {
+                "username": [
+                  "The username must be at least 3 characters.",
+                  "The username field is required."
+                  ],
+                "password": [
+                   "The password must be at least 8 characters.",
+                ]
+            }
+            
++ Response 422 (application/json)
+
+    + Body
+
+            {
+                "username": [
+                  "Incorrect credentials!",
+                ]
+            }
+
+## User login [/api/logout]
+
+### Logout [POST]
+
++ Request (application/json)
+    
+    + Header
         
-+ Response 422 (application/json)
+            Authorization: null
 
-        {
-            "username": [
-              "Incorrect credentials!",
-            ]
-        }
++ Response 401 (application/json)
 
- get /api/users
- post /api/login
- post /api/logout
- 
+    + Body
+    
+            {
+              "error": "You unauthorized!"
+            }
+
++ Request (application/json)
+    
+    + Header
+        
+            Authorization: CorrentAuthTokenString
+
++ Response 200 (application/json)
+
+    + Header
+        
+            Authorization: 
+            
+    + Body
+    
+            {
+                "message": "Successfully logged out"
+            }
+
  get /api/categories
  get /api/category/{id}/products
  

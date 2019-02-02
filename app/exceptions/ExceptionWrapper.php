@@ -38,10 +38,12 @@ class ExceptionWrapper
             $response->send();
         } catch (AbstractApiException $exception) {
             http_response_code($exception->getStatusCode());
+            header('Content-Type: application/json');
             echo json_encode($exception->getMessages());
             return;
         } catch (\Exception $exception) {
             http_response_code($exception->getCode());
+            header('Content-Type: application/json');
             echo json_encode($exception->getMessage());
         }
     }

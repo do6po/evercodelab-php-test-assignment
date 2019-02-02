@@ -35,6 +35,7 @@ class ProductCrudControllerTest extends TestCase
      * @dataProvider deleteDataProvider
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \app\exceptions\http\NotFoundHttpException
+     * @runInSeparateProcess
      */
     public function testDelete($id)
     {
@@ -75,6 +76,7 @@ class ProductCrudControllerTest extends TestCase
      * @dataProvider deleteCategoryDataProvider
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \app\exceptions\http\NotFoundHttpException
+     * @runInSeparateProcess
      */
     public function testDeleteCategory($id)
     {
@@ -114,6 +116,7 @@ class ProductCrudControllerTest extends TestCase
      * @throws \Exception
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \app\exceptions\validations\RequestValidationException
+     * @runInSeparateProcess
      */
     public function testEdit()
     {
@@ -146,6 +149,7 @@ class ProductCrudControllerTest extends TestCase
      * @throws \Exception
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \app\exceptions\validations\RequestValidationException
+     * @runInSeparateProcess
      */
     public function testEditWithDifferentCategoryIds()
     {

@@ -65,8 +65,8 @@ class AuthServiceTest extends TestCase
     }
 
     /**
-     * @expectedException \app\exceptions\auth\ForbiddenHttpException
-     * @expectedExceptionMessage You do not have access to this page!
+     * @expectedException \app\exceptions\auth\UnauthorizedHttpException
+     * @expectedExceptionMessage You unauthorized!
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function testGuard()
@@ -109,7 +109,7 @@ class AuthServiceTest extends TestCase
     }
 
     /**
-     * @throws \app\exceptions\auth\AuthException
+     * @runInSeparateProcess
      */
     public function testLoginForAlreadyAuthorized()
     {
@@ -151,11 +151,17 @@ class AuthServiceTest extends TestCase
         $this->assertNotEmpty($user->token);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     public function testLogout()
     {
         $this->login();
 
-        $this->assertTrue($this->service->logout());
+        $this->assertEquals(
+            ['message' => 'Successfully logged out'],
+            $this->service->logout()
+        );
     }
 
     public function testLogoutForNotAuthorized()

@@ -11,6 +11,7 @@ use app\http\controllers\api\auth\UserController;
 use app\http\controllers\HomeController;
 use app\http\controllers\api\products\ProductController;
 use app\http\controllers\api\products\ProductCrudController;
+use app\http\middleware\AuthMiddleware;
 use app\http\middleware\JsonMiddleware;
 use Illuminate\Routing\Router;
 
@@ -21,28 +22,30 @@ $router->get('/', action(HomeController::class, 'index'));
 #authorisation
 
 $router->middleware([JsonMiddleware::class])->group(function (Router $router) {
-    $router->get('/api/users', action(UserController::class, 'index'));
     $router->post('/api/login', action(UserController::class, 'login'));
-    $router->post('/api/logout', action(UserController::class, 'logout'));
+    $router->post('/api/logout', action(UserController::class, 'logout'))
+        ->middleware(AuthMiddleware::class);
 
 #read
     $router->get('/api/categories', action(ProductController::class, 'categories'));
     $router->get('/api/category/{id}/products', action(ProductController::class, 'productsByCategoryId'));
 
 #crud
-    $router->post('/api/product/add', action(ProductCrudController::class, 'add'));
-    $router->post('/api/category/add', action(ProductCrudController::class, 'addCategory'));
+    $router->middleware([AuthMiddleware::class])->group(function(Router $router) {
+        $router->post('/api/product/add', action(ProductCrudController::class, 'add'));
+        $router->post('/api/category/add', action(ProductCrudController::class, 'addCategory'));
 
-    $router->put('/api/product/{id}', action(ProductCrudController::class, 'edit'));
-    $router->put('/api/category/{id}', action(ProductCrudController::class, 'editCategory'));
+        $router->put('/api/product/{id}', action(ProductCrudController::class, 'edit'));
+        $router->put('/api/category/{id}', action(ProductCrudController::class, 'editCategory'));
 
-    $router->delete('/api/product/{id}', action(ProductCrudController::class, 'delete'));
-    $router->delete('/api/category/{id}', action(ProductCrudController::class, 'deleteCategory'));
+        $router->delete('/api/product/{id}', action(ProductCrudController::class, 'delete'));
+        $router->delete('/api/category/{id}', action(ProductCrudController::class, 'deleteCategory'));
+    });
 });
 
 
-$router->any('{all}', function () {
+$router->any('{any}', function () {
     throw new NotFoundHttpException([
         'error' => $message = 'Page not found!'
     ], $message);
-});
+})->where('any', '(.*)');

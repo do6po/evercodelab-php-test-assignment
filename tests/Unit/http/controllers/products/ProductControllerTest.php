@@ -39,6 +39,9 @@ class ProductControllerTest extends TestCase
         $this->controller = app()->make(ProductController::class);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     public function testCategories()
     {
         $result = $this->controller->categories();
@@ -50,6 +53,7 @@ class ProductControllerTest extends TestCase
     /**
      * @param $categoryId
      * @dataProvider productsByCategoryIdDataProvider
+     * @runInSeparateProcess
      */
     public function testProductsByCategoryId($categoryId)
     {

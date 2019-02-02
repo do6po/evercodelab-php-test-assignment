@@ -10,38 +10,25 @@ namespace app\http\controllers\api\auth;
 
 use app\http\controllers\Controller;
 use app\http\requests\auth\AuthRequest;
-use app\repositories\auth\UserRepository;
 use app\services\auth\AuthService;
 
 class UserController extends Controller
 {
     /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    /**
      * @var AuthService
      */
     private $authService;
 
-    public function __construct(UserRepository $userRepository, AuthService $authService)
+    public function __construct(AuthService $authService)
     {
-        $this->userRepository = $userRepository;
         $this->authService = $authService;
     }
 
     /**
+     * @param AuthRequest $request
      * @return string
-     * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
+     * @throws \app\exceptions\auth\AuthException
      */
-    public function index()
-    {
-        $this->authService->guard();
-
-        return $this->toJson($this->userRepository->all());
-    }
-
     public function login(AuthRequest $request)
     {
         $response = $this->authService->login(
@@ -53,12 +40,10 @@ class UserController extends Controller
     }
 
     /**
-     * @throws \Chiron\Http\Exception\Client\ForbiddenHttpException
+     * @return string
      */
     public function logout()
     {
-        $this->authService->guard();
-
         return $this->toJson($this->authService->logout());
     }
 }
