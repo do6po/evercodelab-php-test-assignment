@@ -27,3 +27,59 @@
 - Код-стайл и соблюдение стандартов
 - Покрытие кода тестами (функциональными или unit)
 
+## Описание API
+
+# Product store
+
+## User login [/api/login]
+
+### Login [POST]
+
++ Request (application/json)
+
+        {
+            "username": "username",
+            "password": "password"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "token": "AuthTokenString"
+        }
+
++ Response 422 (application/json)
+
+        {
+            "username": [
+              "The username must be at least 3 characters.",
+              "The username field is required."
+              ],
+            "password": [
+               "The password must be at least 8 characters.",
+            ]
+        }
+        
++ Response 422 (application/json)
+
+        {
+            "username": [
+              "Incorrect credentials!",
+            ]
+        }
+
+ get /api/users
+ post /api/login
+ post /api/logout
+ 
+ get /api/categories
+ get /api/category/{id}/products
+ 
+ post /api/product/add
+ post /api/category/add
+ 
+ put /api/product/{id}
+ put /api/category/{id}
+ 
+ delete /api/product/{id}
+ delete /api/category/{id}

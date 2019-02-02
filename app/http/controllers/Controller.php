@@ -13,6 +13,8 @@ class Controller
 {
     protected function toJson($result)
     {
+        header('Content-type:application/json;charset=utf-8');
+
         return json_encode($result);
     }
 }
