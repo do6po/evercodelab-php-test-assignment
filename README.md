@@ -127,8 +127,68 @@ echo "192.168.84.137  store.test" >> /etc/hosts
                 "message": "Successfully logged out"
             }
 
- get /api/categories
- get /api/category/{id}/products
+## List of categories [/api/categories]
+
+### Categories [GET]
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                    "id":1,
+                    "name":"product category 1"
+                },
+                {
+                    "id":2,
+                    "name":"product category 2"
+                },
+                {
+                    "id":3,
+                    "name":"product category 3"
+                },
+                {
+                    "id":4,
+                    "name":"product category 4"
+                }
+            ]
+
+## List of categories [/api/category/{id}/products]
+
+### Products [GET]
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                    "id":1,
+                    "name":"product 1"
+                },
+                {
+                    "id":2,
+                    "name":"product 2"
+                },
+                {
+                    "id":3,
+                    "name":"product 3"
+                },
+                {
+                    "id":4,
+                    "name":"product 4"
+                }
+            ]
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "Category not found!"
+            }
+ 
  
  post /api/product/add
  post /api/category/add

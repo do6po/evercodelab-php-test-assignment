@@ -9,12 +9,15 @@
 namespace app\models\products;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * Class ProductCategory
  *
  * @property int $id
  * @property string $name
+ *
+ * @property Product[]|Collection $products
  *
  * @package app\models\products
  */
@@ -24,7 +27,7 @@ class ProductCategory extends Model
 
     protected $fillable = ['name'];
 
-    protected $visible = ['name'];
+    protected $visible = ['id', 'name'];
 
     public $timestamps = false;
 

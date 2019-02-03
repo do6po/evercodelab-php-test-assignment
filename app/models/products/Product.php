@@ -25,7 +25,7 @@ class Product extends Model
 
     protected $fillable = ['name'];
 
-    protected $visible = ['name'];
+    protected $visible = ['id', 'name'];
 
     public $timestamps = false;
 

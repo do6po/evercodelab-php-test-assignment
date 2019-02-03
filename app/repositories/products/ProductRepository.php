@@ -25,17 +25,12 @@ class ProductRepository
     }
 
     /**
-     * @param int $categoryId
-     * @return Product[]|Collection
+     * @param ProductCategory $category
+     * @return Collection
      */
-    public function findByCategoryId(int $categoryId): Collection
+    public function findByCategory(ProductCategory $category): Collection
     {
-        return Product::whereHas(
-            'categories',
-            function ($query) use ($categoryId) {
-                $query->whereId($categoryId);
-            }
-        )->get();
+        return $category->products;
     }
 
     /**

@@ -33,11 +33,14 @@ class ProductService
 
     /**
      * @param int $id
-     * @return \app\models\products\Product[]|\Illuminate\Support\Collection
+     * @return Product[]|\Illuminate\Support\Collection
+     * @throws NotFoundHttpException
      */
     public function getByCategoryId(int $id)
     {
-        return $this->productRepository->findByCategoryId($id);
+        $category = $this->findCategoryByIdOrFail($id);
+
+        return $this->productRepository->findByCategory($category);
     }
 
     /**
@@ -157,8 +160,7 @@ class ProductService
         if (($product = $this->productRepository->findById($id)) === null) {
             throw new NotFoundHttpException([
                 'error' => $message = 'Product not found!',
-                $message
-            ]);
+            ], $message);
         }
         return $product;
     }
@@ -174,8 +176,7 @@ class ProductService
         if (($category = $this->productRepository->findCategoryById($id)) === null) {
             throw new NotFoundHttpException([
                 'error' => $message = 'Category not found!',
-                $message
-            ]);
+            ], $message);
         }
         return $category;
     }
