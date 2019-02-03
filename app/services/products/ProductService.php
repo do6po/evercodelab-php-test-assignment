@@ -87,8 +87,9 @@ class ProductService
         $connection = Product::resolveConnection();
         $connection->beginTransaction();
 
+        $product = $this->findByIdOrFail($id);
+
         try {
-            $product = $this->findByIdOrFail($id);
             $product->fill(['name' => $productName]);
             $product->save();
 
@@ -99,7 +100,7 @@ class ProductService
         } catch (\Exception $exception) {
             $connection->rollBack();
 
-            return false;
+            throw $exception;
         }
     }
 

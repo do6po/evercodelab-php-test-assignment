@@ -32,5 +32,12 @@ echo 'alias phinx="./vendor/bin/phinx"' >> /home/vagrant/.bash_aliases
 info "Enabling colorized prompt for guest console"
 sed -i "s/#force_color_prompt=yes/force_color_prompt=yes/" /home/vagrant/.bashrc
 
-phinx migrate
-phinx migrate -e test
+source /home/vagrant/.bash_aliases
+
+cd /app
+
+./vendor/bin/phinx migrate
+./vendor/bin/phinx migrate -e test
+
+./vendor/bin/phinx seed:run -s UserSeeder
+./vendor/bin/phinx seed:run -s ProductSeeder

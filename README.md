@@ -154,7 +154,7 @@ echo "192.168.84.137  store.test" >> /etc/hosts
                 }
             ]
 
-## List of categories [/api/category/{id}/products]
+## List of products for selected category [/api/category/{id}/products]
 
 ### Products [GET]
 
@@ -189,12 +189,161 @@ echo "192.168.84.137  store.test" >> /etc/hosts
                 "error": "Category not found!"
             }
  
+## Adding product [/api/product/add]
+
+### add product [POST]
  
- post /api/product/add
- post /api/category/add
++ Request (application/json)
+  
+    + Header
+
+            Authorization: CorrentAuthTokenString
+
+    + Body
+    
+          {
+              "name": "product name",
+              "categoryIds": [1, 2, 3]
+          }
+
++ Response 200 (application/json)
  
- put /api/product/{id}
- put /api/category/{id}
+    + Body
  
- delete /api/product/{id}
- delete /api/category/{id}
+          {
+              "id": (int)"id of new product"
+          }
+
+## Adding category [/api/category/add]
+
+### add category [POST]
+ 
++ Request (application/json)
+
+    + Header
+
+            Authorization: CorrentAuthTokenString
+
+    + Body
+  
+            {
+              "name": "category name",
+            }
+          
++ Response 200 (application/json)
+ 
+    + Body
+    
+            {
+              "id": "(int)id of new category"
+            }
+ 
+## Deleting product [/api/product/{id}]
+
+### delete product [DELETE]
+  
++ Request (application/json)
+
+    + Header
+
+            Authorization: CorrentAuthTokenString
+       
++ Response 200 (application/json)
+
+    + Body
+ 
+            true
+ 
++ Response 404 (application/json)
+
+    + Body
+ 
+            {
+                "error": "Product not found!"
+            }
+
+## Deleting category [/api/category/{id}]
+
+### delete category [DELETE]
+  
++ Request (application/json)
+
+    + Header
+
+            Authorization: CorrentAuthTokenString
+       
++ Response 200 (application/json)
+
+    + Body
+ 
+            true
+ 
++ Response 404 (application/json)
+
+    + Body
+ 
+            {
+                "error": "Category not found!"
+            }
+
+## Editing product [/api/product/{id}]
+
+### product edit [PUT]
+  
++ Request (application/json)
+
+    + Header
+
+            Authorization: CorrentAuthTokenString
+        
+    + Body
+    
+            {
+                "name": "new product name",
+                "categoryIds": [2, 3, 4]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+ 
+            true
+
++ Response 404 (application/json)
+
+    + Body
+ 
+            {
+                "error": "Product not found!"
+            }
+            
+## Editing category [/api/category/{id}]
+
+### category edit [PUT]
+  
++ Request (application/json)
+
+    + Header
+
+            Authorization: CorrentAuthTokenString
+        
+    + Body
+    
+            {
+                "name": "new category name"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+ 
+            true
+
++ Response 404 (application/json)
+
+    + Body
+ 
+            {
+                "error": "Category not found!"
+            }
+
